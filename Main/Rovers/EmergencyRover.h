@@ -1,5 +1,6 @@
 #pragma once
-class EmergencyRover
+#include"Rover.h"
+class EmergencyRover:public Rover
 {
 };
 
