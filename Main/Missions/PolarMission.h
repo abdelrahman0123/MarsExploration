@@ -1,5 +1,6 @@
 #pragma once
-class PolarMission
+#include "Mission.h"
+class PolarMission : public Mission
 {
 };
 
