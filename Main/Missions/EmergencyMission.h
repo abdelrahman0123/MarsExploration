@@ -1,5 +1,6 @@
 #pragma once
-class EmergencyMission
+#include "Mission.h"
+class EmergencyMission : public Mission
 {
 };
 
