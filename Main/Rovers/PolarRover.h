@@ -1,8 +1,7 @@
 #pragma once
 #include"Rover.h"
-class PolarRover:public Rover
+class PolarRover : public Rover
 {
-
 
 };
 
