@@ -1,5 +1,6 @@
 #pragma once
-class PromoteEvent
+#include "Event.h"
+class PromoteEvent : public Event
 {
 };
 

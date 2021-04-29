@@ -1,6 +1,6 @@
 #pragma once
 #include"Rover.h"
-class MountainousRover:public Rover
+class MountainousRover : public Rover
 {
 };
 
