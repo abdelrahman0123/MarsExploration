@@ -4,7 +4,7 @@ using namespace std;
 
 
 template <typename T>
-class Queue 
+class Queue
 {
 private:
 
@@ -18,7 +18,7 @@ public:
 	bool peek(T& frntEntry)  const;
 	~Queue();
 
-	
+
 	Queue(const Queue<T>& LQ);
 };
 
@@ -41,13 +41,13 @@ template <typename T>
 bool Queue<T>::enqueue(const T& newEntry)
 {
 	Node<T>* newNodePtr = new Node<T>(newEntry);
-	
-	if (isEmpty())	
+
+	if (isEmpty())
 		frontPtr = newNodePtr;
 	else
-		backPtr->setNext(newNodePtr); 
+		backPtr->setNext(newNodePtr);
 
-	backPtr = newNodePtr; 
+	backPtr = newNodePtr;
 	return true;
 }
 
@@ -61,7 +61,7 @@ bool Queue<T>::dequeue(T& frntEntry)
 	Node<T>* nodeToDeletePtr = frontPtr;
 	frntEntry = frontPtr->getItem();
 	frontPtr = frontPtr->getNext();
-	if (nodeToDeletePtr == backPtr)	 
+	if (nodeToDeletePtr == backPtr)
 		backPtr = nullptr;
 
 	delete nodeToDeletePtr;
@@ -96,7 +96,7 @@ template <typename T>
 Queue<T>::Queue(const Queue<T>& LQ)
 {
 	Node<T>* NodePtr = LQ.frontPtr;
-	if (!NodePtr) 
+	if (!NodePtr)
 	{
 		frontPtr = backPtr = nullptr;
 		return;
@@ -106,7 +106,7 @@ Queue<T>::Queue(const Queue<T>& LQ)
 	frontPtr = backPtr = ptr;
 	NodePtr = NodePtr->getNext();
 
-	
+
 	while (NodePtr)
 	{
 		Node<T>* ptr = new Node<T>(NodePtr->getItem());
