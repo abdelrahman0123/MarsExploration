@@ -10,7 +10,7 @@ private:
 
 public:
 
-	ArrayStack(int MaxSize) : STACK_SIZE(MaxSize)
+	Stack(int MaxSize) : STACK_SIZE(MaxSize)
 	{
 		items = new T[STACK_SIZE];
 		top = -1;
@@ -49,13 +49,13 @@ public:
 	}
 
 
-	~ArrayStack()
+	~Stack()
 	{
 		delete[]items;
 	}
 
 
-	ArrayStack(const ArrayStack<T>& S) :STACK_SIZE(S.STACK_SIZE)
+	Stack(const ArrayStack<T>& S) :STACK_SIZE(S.STACK_SIZE)
 	{
 		items = new T[STACK_SIZE];
 		for (int i = 0; i <= S.top; i++)
