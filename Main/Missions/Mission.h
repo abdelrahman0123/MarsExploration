@@ -8,6 +8,10 @@ private:
 	// id  location, duration,  significance, formulation day,waiting days,execution days,completion days
 public:
 	Mission() :WD(0), ED(0), CD(0){}
+	Mission(int a, int b, int c, int d, int e) :ID(a), TLOC(b), MDUR(c), SIG(d), FD(e)
+	{
+		WD = 0; ED = 0; CD = 0;
+	}
 	//getters
 	int getid(){ return ID; }
 	int gettarloc(){ return TLOC; }
@@ -33,7 +37,7 @@ public:
 	void setmissdur(int i){ MDUR = (i > 0) ? i : 0; }
 	void setsig(int i){ SIG = (i > 0) ? i : 0; }
 	void setformday(int i){ FD = (i > 0) ? i : 0; }
-	void incrwaitingdays(){ WD++; }
+	void incrwaitingdays(){ WD++; }//waiting each mission
 
 	void setexecdays(int speed)
 	{
