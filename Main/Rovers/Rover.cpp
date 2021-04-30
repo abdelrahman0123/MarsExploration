@@ -5,7 +5,7 @@ Rover::Rover() {
 	checkUpDuration = 0;
 	speed = 0;
 	assignedMission = nullptr;
-	status = "Avaliable";
+	status = "unknown";
 }
 Rover::Rover(char r, int c, int s, Mission* m, string st) {
 	roverType = r;
