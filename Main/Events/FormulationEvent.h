@@ -1,5 +1,6 @@
 #pragma once
-class FormulationEvent
+#include "Event.h"
+class FormulationEvent : public Event
 {
 };
 

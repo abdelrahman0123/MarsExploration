@@ -1,6 +1,6 @@
 #pragma once
 #include"Rover.h"
-class EmergencyRover:public Rover
+class EmergencyRover : public Rover
 {
 };
 

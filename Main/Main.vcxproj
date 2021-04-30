@@ -139,6 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Labs\Lab#3\Stacks_Queues_Code Examples\1-Stacks\Stack.h" />
+    <ClInclude Include="All_Files.h" />
+    <ClInclude Include="DataStructures\LinkedList.h" />
+    <ClInclude Include="DataStructures\Node.h" />
+    <ClInclude Include="DataStructures\PriorityQueue.h" />
+    <ClInclude Include="DataStructures\Queue.h" />
     <ClInclude Include="Events\CancelEvent.h" />
     <ClInclude Include="Events\Event.h" />
     <ClInclude Include="Events\FormulationEvent.h" />

@@ -1,5 +1,6 @@
 #pragma once
-class CancelEvent
+#include "Event.h"
+class CancelEvent : public Event
 {
 };
 
