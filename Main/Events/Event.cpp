@@ -23,3 +23,7 @@ int Event::getMissionID()
 {
 	return MissionID;
 }
+
+Event::~Event()
+{
+}

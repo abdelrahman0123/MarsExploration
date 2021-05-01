@@ -1,6 +1,7 @@
 #pragma once
 #include "..\MarsStation\MarsStation.h"
 #include "..\Missions\Mission.h"
+#include "..\MissionType.h"
 class Event
 {
 	int EventDay;
@@ -14,5 +15,6 @@ public:
 	void setMissionID(int ID);
 	int getMissionID();
 	virtual void Execute() = 0;
+	virtual ~Event();
 };
 

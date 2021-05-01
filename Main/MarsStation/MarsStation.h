@@ -4,7 +4,7 @@ class MarsStation
 {
 	// Lists
 	Queue<Event> Events;
-	PriQ<Event> EmergencyMissions;
+	PriQ<EmergencyMission> EmergencyMissions;
 	Queue<Event> MountainousMissions;
 	Queue<Event> PolarMissions;
 	PriQ<Event> EmergencyRovers;
@@ -13,7 +13,7 @@ class MarsStation
 	PriQ<Event> InExecutionMissions;
 	PriQ<Event> InExecutionRovers;
 	PriQ<Event> MaintenanceRovers;
-	Stack<Mission> CompletedMissions;
+	Queue<Mission> CompletedMissions; // 3adel el types
 public:
 	MarsStation();
 };

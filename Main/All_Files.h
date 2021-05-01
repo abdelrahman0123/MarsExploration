@@ -14,3 +14,4 @@
 #include "DataStructures/Stack.h"
 #include "DataStructures/PriQ.h"
 #include "UI\UI.h"
+#include "MissionType.h"
