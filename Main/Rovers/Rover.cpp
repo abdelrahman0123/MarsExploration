@@ -1,29 +1,32 @@
 #pragma once
 #include "Rover.h"
 Rover::Rover() {
-	roverType = 'U';
-	checkUpDuration = 0;
+	
+	checkupDuration = 0;
 	speed = 0;
 	assignedMission = nullptr;
-	status = "unknown";
+	available =1;
+	missionsBeforeCheckup = 0;
+	missionLeft = 0;
+	maintenanceStatus = 0;
 }
-Rover::Rover(char r, int c, int s, Mission* m, string st) {
-	roverType = r;
-	checkUpDuration = c;
+
+Rover::Rover(int c, float s, Mission* m, bool av,int x) {
+
+	checkupDuration = c;
 	speed = s;
 	assignedMission = m;
-	status = st;
+	available = av;
+	missionsBeforeCheckup = x;
+	missionLeft = x;
+	maintenanceStatus = 0;
 }
 
-void Rover::setRoverType(char t) {
-	roverType = t;
+void Rover::setcheckupDuration(int c) {
+	checkupDuration = c;
 }
 
-void Rover::setCheckUpDuration(int c) {
-	checkUpDuration = c;
-}
-
-void Rover::setRoverSpeed(int s) {
+void Rover::setRoverSpeed(float s) {
 	speed = s;
 }
 
@@ -31,38 +34,55 @@ void Rover::setAssignedMission(Mission* m) {
 	assignedMission = m;
 }
 
-void Rover::setStatus(string st) {
-	status = st;
+void Rover::setAvailability(bool av) {
+	available = av;
 }
 
-char Rover::getRoverType() {
-	return roverType;
+void Rover::setMissionsBeforeCheckup(int x) {
+	missionsBeforeCheckup = x;
 }
 
-int Rover::getCheckUpDuration() {
-	return checkUpDuration;
+void Rover::setMaintenanceStatus(bool m) {
+	maintenanceStatus = m;
+	setAvailability(!m);
 }
 
-int Rover::getRoverSpeed() {
+int Rover::getcheckupDuration() {
+	return checkupDuration;
+}
+
+float Rover::getRoverSpeed() {
 	return speed;
-}
-
-void Rover::operator =(const Rover& r) {
-	roverType = r.roverType;
-	checkUpDuration = r.checkUpDuration;
-	speed = r.speed;
 }
 
 Mission* Rover::getAssignedMission() {
 	return assignedMission;
 }
 
-bool Rover::getStatus() {
-	if (status == "Avaliable")
-		return true;
-	else 
-		return false;
+bool Rover::inMaintenance() {
+	return maintenanceStatus;
 }
+
+bool Rover::isAvailable() {
+	return available;
+}
+
+int Rover::getMissionsBeforeCheckUp() {
+	return missionLeft;
+}
+
+void Rover::DecrementMissionsLeft() {
+	missionLeft--;
+}
+
+
+
+void Rover::operator =(const Rover& r) {
+
+	checkupDuration = r.checkupDuration;
+	speed = r.speed;
+}
+
 Rover::~Rover() {
 
 }

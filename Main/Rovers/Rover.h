@@ -4,26 +4,52 @@ using namespace std;
 #include"..\Missions\Mission.h"
 class Rover
 {
-	char roverType;
-	int checkUpDuration;
-	int speed;
-	Mission* assignedMission;
-	string status;
+	int checkupDuration; //The number of days a rover spends in maintenance. 
+	float speed; //The speed of each rover. 
+	Mission* assignedMission; //A mission pointer to the mission assigned to the rover
+	bool available; //Checks whether the rover is available or not (not available if in maintenance or on a mission)
+	int missionsBeforeCheckup;//The number of missions a rover finishes before getting checked up (input from the txt file)
+	int missionLeft;//The number of missions a rover has ACTUALLY finished (CHANGES throughout the simulation)
+	bool maintenanceStatus;//If true, the rover is held in maintenance.
 public:
-	Rover();
-	Rover(char r, int c, int s,Mission* m, string st);
-	void setRoverType(char t);
-	void setCheckUpDuration(int d);
-	void setRoverSpeed(int s);
+
+	Rover(); //Default constructor.
+	         //Sets every data member to 0, and pointers to NULL;
+
+	Rover(int c, float s, Mission* m, bool av, int x); //User defined constructor
+	 
+	//SETTERS
+	void setcheckupDuration(int c);
+	
+	void setRoverSpeed(float s);
+	
 	void setAssignedMission(Mission *);
-	void setStatus(string st);
-	char getRoverType();
-	int getCheckUpDuration();
-	int getRoverSpeed();
+	
+	void setAvailability(bool av);
+	
+	void setMissionsBeforeCheckup(int x);//The input from the txt file
+		
+	void setMaintenanceStatus(bool m);
+
+	int getcheckupDuration();
+	
+	float getRoverSpeed();
+	
 	Mission* getAssignedMission();
-	bool getStatus();
-	void operator =(const Rover& r);
-	~Rover();
+	
+	bool inMaintenance();
+
+	bool isAvailable();
+	
+	int getMissionsBeforeCheckUp();
+	
+	int getMissionsLeft();
+    
+	void DecrementMissionsLeft();//Decrements the ACTUAL number of missions left before checkup
+	
+	void operator =(const Rover& r);//Overloaded = operator
+
+	virtual ~Rover();
 
 };
 
