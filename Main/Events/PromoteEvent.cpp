@@ -7,8 +7,6 @@ PromoteEvent::PromoteEvent(Mission* M, int day, int ID) : Event(day, ID)
 
 void PromoteEvent::Execute()
 {
-	/*
 	if (M_Mission)
-		Station->PromoteMountainous(M_Mission);
-	*/
+		Station->PromoteMountainousMission(M_Mission);
 }

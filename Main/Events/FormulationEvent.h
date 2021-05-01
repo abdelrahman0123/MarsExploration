@@ -2,9 +2,9 @@
 #include "Event.h"
 class FormulationEvent : public Event
 {
-	Mission* MissionType; // Mission to be formulated
+	MissionType MType; // Mission Type to be formulated
 public:
-	FormulationEvent(Mission* MType, int day, int ID);
+	FormulationEvent(MissionType Type, int day, int ID);
 	virtual void Execute();
 };
 

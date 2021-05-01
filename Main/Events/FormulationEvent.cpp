@@ -1,25 +1,23 @@
 #include "FormulationEvent.h"
 
-FormulationEvent::FormulationEvent(Mission* MType, int day, int ID) : Event(day, ID)
+FormulationEvent::FormulationEvent(MissionType Type, int day, int ID) : Event(day, ID), MType(Type)
 {
-	MissionType = MType;
 }
 
 void FormulationEvent::Execute()
 {
-	/*
-		Mission* Type = dynamic_cast<EmergencyMission> (MissionType);
-		if (Type)
-		{
-			Station->AddToEList(MissionType);
-			return;
-		}
-		Type = dynamic_cast<MountainousMission> (MissionType);
-		if (Type)
-		{
-			Station->AddToMList(MissionType);
-			return;
-		}
-		Station->AddToPList(MissionType);
-	*/
+	if (MType == Emergency)
+	{
+		EmergencyMission* EM = new EmergencyMission();
+		Station->AddToEmergencyMissions(EM, sig);
+		return;
+	}
+	else if (MType == Mountainous)
+	{
+		MountainousMission* MM = new MountainousMission();
+		Station->AddToMountainousMissions(MM);
+		return;
+	}
+	PolarMission* PM = new PolarMission();
+	Station->AddToPolarMissions(PM);
 }

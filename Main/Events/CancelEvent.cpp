@@ -7,8 +7,6 @@ CancelEvent::CancelEvent(Mission* M, int day, int ID) : Event(day, ID)
 
 void CancelEvent::Execute()
 {
-	/*
 	if (M_Mission)
-		Station->CancelMountainous(M_Mission);
-	*/
+		Station->CancelMountainousMission(M_Mission);
 }
