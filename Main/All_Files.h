@@ -11,7 +11,6 @@
 #include "Events\PromoteEvent.h"
 #include "Events\CancelEvent.h"
 #include "DataStructures/Queue.h"
-#include "DataStructures/Stack.h"
 #include "DataStructures/PriQ.h"
 #include "UI\UI.h"
 #include "MissionType.h"

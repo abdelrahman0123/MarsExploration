@@ -35,7 +35,10 @@ bool PriQ<T> ::enqueue(T& entry, int pri)
 {
 	PriNode<T>* newNode = new PriNode<T>(entry, pri);
 	if (isEmpty())
+	{
 		frontptr = newNode;
+		backptr = newNode;
+	}
 	else
 	{
 		PriNode<T>* traverse = frontptr;
@@ -45,7 +48,7 @@ bool PriQ<T> ::enqueue(T& entry, int pri)
 			frontptr = newNode;
 			return true;
 		}
-		if (backptr->getPriority() > newNode->getPriority())	//Lowest Priority Case
+		if (backptr->getPriority() >= newNode->getPriority())	//Lowest Priority Case
 		{
 			backptr->setNext(newNode);
 			backptr = newNode;
@@ -57,8 +60,6 @@ bool PriQ<T> ::enqueue(T& entry, int pri)
 			{
 				newNode->setNext(traverse->getNext());
 				traverse->setNext(newNode);
-				if (!newNode->getNext())
-					backptr = newNode;
 				return true;
 			}
 			traverse = traverse->getNext();
