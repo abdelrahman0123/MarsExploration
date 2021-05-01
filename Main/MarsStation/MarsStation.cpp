@@ -126,10 +126,20 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 
 void MarsStation::CancelMountainousMission(Mission* MM)
 {
+	/*
+		1) Search for MM->getID() in the Mountainous Missions list
+		2) if found, delete that mission from the list
+		3) Adjust the data structure
+	*/
 }
 
 void MarsStation::PromoteMountainousMission(Mission* MM)
 {
+	/*
+		1) Search for MM->getID() in the Mountainous Missions list
+		2) if found, promote that mission to be an emergency
+		3) Adjust both lists
+	*/
 }
 
 MarsStation::~MarsStation()

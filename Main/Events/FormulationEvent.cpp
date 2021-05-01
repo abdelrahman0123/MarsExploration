@@ -18,9 +18,6 @@ void FormulationEvent::Execute()
 		Station->AddToMountainousMissions(MM);
 		return;
 	}
-	else
-	{
-		PolarMission* PM = new PolarMission();
-		Station->AddToPolarMissions(PM);
-	}
+	PolarMission* PM = new PolarMission();
+	Station->AddToPolarMissions(PM);
 }
