@@ -124,11 +124,15 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 	return M;
 }
 
-void MarsStation::CancelMountainous(MountainousMission* MM)
+void MarsStation::CancelMountainousMission(MountainousMission* MM)
 {
 }
 
-void MarsStation::PromoteMountainous(MountainousMission* MM)
+void MarsStation::PromoteMountainousMission(MountainousMission* MM)
+{
+}
+
+MarsStation::~MarsStation()
 {
 }
 
