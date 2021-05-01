@@ -5,5 +5,5 @@ More details are shown in the code itself.
 - Written in C++
 - IDE: Visual Studio 2019
 - Command Line Program (No GUI)
-- OOP and Data Structures Project for CUFE CMP2024
+- OOP and Data Structures Project for CUFE CMP2024\
 *Hope you like it!*
