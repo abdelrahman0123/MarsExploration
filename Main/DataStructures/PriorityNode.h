@@ -7,10 +7,10 @@ private:
 	PriNode<T>* next;
 	int priority;
 public:
-	PriNode(int p = 0)
+	PriNode()
 	{
 		next = nullptr;
-		priority = p;
+		priority = 0;
 	}
 
 	PriNode(T newItem, int p = 0)
@@ -28,6 +28,11 @@ public:
 	void setNext(Node<T>* nextPtr)
 	{
 		next = nextPtr;
+	}
+
+	void setPriority(int p)
+	{
+		priority = p;
 	}
 
 	T getItem() const

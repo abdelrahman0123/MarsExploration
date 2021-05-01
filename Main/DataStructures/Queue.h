@@ -115,5 +115,3 @@ Queue<T>::Queue(const Queue<T>& LQ)
 		NodePtr = NodePtr->getNext();
 	}
 }
-
-
