@@ -31,6 +31,7 @@ public:
 		
 	void setMaintenanceStatus(bool m);
 
+	//GETTERS
 	int getcheckupDuration();
 	
 	float getRoverSpeed();
