@@ -43,10 +43,10 @@ public:
 	Mission* RemoveFromCompletedMissions();
 
 	// Cancel Mountainous Mission
-	void CancelMountainousMission(MountainousMission* MM);
+	void CancelMountainousMission(Mission* MM);
 
 	// Promote Mountainous Mission
-	void PromoteMountainousMission(MountainousMission* MM);
+	void PromoteMountainousMission(Mission* MM);
 
 	// Destructor
 	~MarsStation();

@@ -2,9 +2,9 @@
 #include "Event.h"
 class PromoteEvent : public Event
 {
-	MissionType MType;
+	Mission* M_Mission;
 public:
-	PromoteEvent(MissionType Type, int day, int ID);
+	PromoteEvent(Mission* M, int day, int ID);
 	virtual void Execute();
 };
 

@@ -2,9 +2,9 @@
 #include "Event.h"
 class CancelEvent : public Event
 {
-	MissionType MType;
+	Mission* M_Mission;
 public:
-	CancelEvent(MissionType Type, int day, int ID);
+	CancelEvent(Mission* M, int day, int ID);
 	virtual void Execute();
 };
 
