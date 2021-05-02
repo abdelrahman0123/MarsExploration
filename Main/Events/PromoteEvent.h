@@ -2,9 +2,12 @@
 #include "Event.h"
 class PromoteEvent : public Event
 {
-	Mission* M_Mission; // Mission to be promoted
 public:
-	PromoteEvent(Mission* M, int day, int ID);
+	// Initializing Constructor
+	PromoteEvent(int day, int ID);
+	// Execute
 	virtual void Execute();
+	// Destructor
+	~PromoteEvent();
 };
 

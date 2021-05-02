@@ -124,22 +124,48 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 	return M;
 }
 
-void MarsStation::CancelMountainousMission(Mission* MM)
+void MarsStation::CancelMission(int ID)
 {
-	/*
-		1) Search for MM->getID() in the Mountainous Missions list
-		2) if found, delete that mission from the list
-		3) Adjust the data structure
-	*/
+	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
+	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be cancelled
+	while (!MountainousMissions.isEmpty())
+	{
+		MountainousMissions.peek(M_Mission); // Get the first mission
+		if (M_Mission->GetId() == ID)
+		{
+			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
+		}
+		else
+		{
+			MountainousMissions.dequeue(M_Mission);
+			temp.enqueue(M_Mission);
+			// If not found, remove mission and add it to the temp queue
+		}
+	}
+	MountainousMissions = temp; // Equate both queues
 }
 
-void MarsStation::PromoteMountainousMission(Mission* MM)
+void MarsStation::PromoteMission(int ID)
 {
-	/*
-		1) Search for MM->getID() in the Mountainous Missions list
-		2) if found, promote that mission to be an emergency
-		3) Adjust both lists
-	*/
+	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
+	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be promoted to emergency
+	while (!MountainousMissions.isEmpty())
+	{
+		MountainousMissions.peek(M_Mission); // Get the first mission using peek function
+		if (M_Mission->GetId() == ID)
+		{
+			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
+			EmergencyMission* EM = new EmergencyMission(); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
+			EmergencyMissions.enqueue(EM, M_Mission->GetSig()); // Add the new mission to the emergency missions list
+		}
+		else
+		{
+			MountainousMissions.dequeue(M_Mission);
+			temp.enqueue(M_Mission);
+			// If not found, remove mission and add it to the temp queue
+		}
+	}
+	MountainousMissions = temp; // Equate both queues
 }
 
 MarsStation::~MarsStation()
