@@ -1,7 +1,6 @@
 #pragma once
-#include "..\MarsStation\MarsStation.h"
-#include "..\Missions\Mission.h"
 #include "..\MissionType.h"
+class MarsStation;
 class Event
 {
 	int EventDay;
