@@ -25,7 +25,7 @@ public:
 		item = newItem;
 	}
 
-	void setNext(Node<T>* nextPtr)
+	void setNext(PriNode<T>* nextPtr)
 	{
 		next = nextPtr;
 	}
