@@ -4,9 +4,9 @@ MarsStation::MarsStation()
 {
 }
 
-void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int sig)
+void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int pri)
 {
-	EmergencyMissions.enqueue(EM, sig);
+	EmergencyMissions.enqueue(EM, pri);
 }
 
 void MarsStation::AddToMountainousMissions(MountainousMission* MM)

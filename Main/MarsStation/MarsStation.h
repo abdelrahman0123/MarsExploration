@@ -20,7 +20,7 @@ public:
 	MarsStation();
 
 	// Add to Lists
-	void AddToEmergencyMissions(EmergencyMission* EM, int sig);
+	void AddToEmergencyMissions(EmergencyMission* EM, int pri);
 	void AddToMountainousMissions(MountainousMission* MM);
 	void AddToPolarMissions(PolarMission* PM);
 	void AddToEmergencyRovers(EmergencyRover* ER, int speed);

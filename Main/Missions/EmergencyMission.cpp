@@ -4,7 +4,7 @@
 EmergencyMission::EmergencyMission() {}//default constructor
 
 
-EmergencyMission::EmergencyMission(int a, int b, int c, int d, int e)  :Mission(a,b,c,d,e)//non default constructor
+EmergencyMission::EmergencyMission(int a, int b, int c, int d, int e)  :Mission(a,b,c,d,e), priority(0)//non default constructor
 {}
 
 
