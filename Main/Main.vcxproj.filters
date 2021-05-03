@@ -134,5 +134,8 @@
     <ClCompile Include="Missions\MountainousMission.cpp">
       <Filter>Missions</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
