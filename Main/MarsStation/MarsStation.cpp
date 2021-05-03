@@ -154,9 +154,14 @@ void MarsStation::PromoteMission(int ID)
 		MountainousMissions.peek(M_Mission); // Get the first mission using peek function
 		if (M_Mission->GetId() == ID)
 		{
+			int id = M_Mission->GetId();
+			int TLOC = M_Mission->GetTargetLocation();
+			int MDUR = M_Mission->GetMissDuration();
+			int SIG = M_Mission->GetSignificance();
+			int FD = M_Mission->GetFormulationDay();
 			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
-			EmergencyMission* EM = new EmergencyMission(); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
-			EmergencyMissions.enqueue(EM, M_Mission->GetSig()); // Add the new mission to the emergency missions list
+			EmergencyMission* EM = new EmergencyMission(id, TLOC, MDUR, SIG, FD); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
+			EmergencyMissions.enqueue(EM, EM->GetPriority()); // Add the new mission to the emergency missions list
 		}
 		else
 		{
