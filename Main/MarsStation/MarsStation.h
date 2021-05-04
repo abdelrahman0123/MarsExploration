@@ -13,7 +13,7 @@ class MarsStation
 	PriQ<PolarRover*> PolarRovers;
 	PriQ<Mission*> InExecutionMissions;
 	PriQ<Rover*> InExecutionRovers;
-	PriQ<Rover*> MaintenanceRovers;
+	PriQ<Rover*> RoversCheckup;
 	Queue<Mission*> CompletedMissions;
 public:
 	// Default Constructor
@@ -28,7 +28,7 @@ public:
 	void AddToPolarRovers(PolarRover* PR, int speed);
 	void AddToInExecutionMissions(Mission* M, int n);
 	void AddToInExecutionRovers(Rover* R, int n);
-	void AddToMaintenanceRovers(Rover* R, int n);
+	void AddToRoversCheckup(Rover* R, int n);
 	void AddToCompletedMissions(Mission* EM);
 
 	// Remove from Lists
@@ -40,7 +40,7 @@ public:
 	PolarRover* RemoveFromPolarRovers();
 	Mission* RemoveFromInExecutionMissions();
 	Rover* RemoveFromInExecutionRovers();
-	Rover* RemoveFromMaintenanceRovers();
+	Rover* RemoveFromRoversCheckup();
 	Mission* RemoveFromCompletedMissions();
 
 	// Cancel Mountainous Mission

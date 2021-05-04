@@ -44,9 +44,9 @@ void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 	InExecutionRovers.enqueue(R, n);
 }
 
-void MarsStation::AddToMaintenanceRovers(Rover* R, int n)
+void MarsStation::AddToRoversCheckup(Rover* R, int n)
 {
-	MaintenanceRovers.enqueue(R, n);
+	RoversCheckup.enqueue(R, n);
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
@@ -110,10 +110,10 @@ Rover* MarsStation::RemoveFromInExecutionRovers()
 	return R;
 }
 
-Rover* MarsStation::RemoveFromMaintenanceRovers()
+Rover* MarsStation::RemoveFromRoversCheckup()
 {
 	Rover* R = NULL;
-	MaintenanceRovers.dequeue(R);
+	RoversCheckup.dequeue(R);
 	return R;
 }
 
