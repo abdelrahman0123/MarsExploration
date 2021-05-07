@@ -59,6 +59,12 @@ public:
 	void UpdateMissions();
 	void HandleMission();
 
+
+	void MoveRoverFromAvailabeToBusy(Rover*);
+	void MoveRoverFromBusyToAvailable();
+	void MoveRoverFromAvailableToCheckup(Rover*);
+	void MoveRoverFromCheckupToAvailable();
+
 	// Destructor
 	~MarsStation();
 };
