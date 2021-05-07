@@ -44,7 +44,7 @@ void MarsStation::UpdateMissions()
 	{
 		InExecutionMissions.dequeue(mission);
 		mission->DecrementInexecutionDays();
-		InExecutionTemp.enqueue(mission,mission->GetExecutionDays());
+		InExecutionTemp.enqueue(mission,mission->GetCompletionDay());
 	}
 	InExecutionMissions = InExecutionTemp;
 	//assign to rover
