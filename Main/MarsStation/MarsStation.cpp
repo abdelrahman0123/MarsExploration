@@ -64,6 +64,7 @@ void MarsStation::UpdateMissions()
 	HandleMission();
 
 }
+
 void MarsStation::HandleMission()
 {
 	Mission*Temp;
@@ -85,9 +86,9 @@ void MarsStation::HandleMission()
 	}
 
 }
-void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int sig)
+void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int pri)
 {
-	EmergencyMissions.enqueue(EM, sig);
+	EmergencyMissions.enqueue(EM, pri);
 }
 
 void MarsStation::AddToMountainousMissions(MountainousMission* MM)
@@ -125,9 +126,9 @@ void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 	InExecutionRovers.enqueue(R, n);
 }
 
-void MarsStation::AddToMaintenanceRovers(Rover* R, int n)
+void MarsStation::AddToRoversCheckup(Rover* R, int n)
 {
-	MaintenanceRovers.enqueue(R, n);
+	RoversCheckup.enqueue(R, n);
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
@@ -191,10 +192,10 @@ Rover* MarsStation::RemoveFromInExecutionRovers()
 	return R;
 }
 
-Rover* MarsStation::RemoveFromMaintenanceRovers()
+Rover* MarsStation::RemoveFromRoversCheckup()
 {
 	Rover* R = NULL;
-	MaintenanceRovers.dequeue(R);
+	RoversCheckup.dequeue(R);
 	return R;
 }
 
@@ -235,9 +236,14 @@ void MarsStation::PromoteMission(int ID)
 		MountainousMissions.peek(M_Mission); // Get the first mission using peek function
 		if (M_Mission->GetId() == ID)
 		{
+			int id = M_Mission->GetId();
+			int TLOC = M_Mission->GetTargetLocation();
+			int MDUR = M_Mission->GetMissDuration();
+			int SIG = M_Mission->GetSignificance();
+			int FD = M_Mission->GetFormulationDay();
 			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
-			EmergencyMission* EM = new EmergencyMission(); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
-			EmergencyMissions.enqueue(EM, M_Mission->GetSignificance()); // Add the new mission to the emergency missions list
+			EmergencyMission* EM = new EmergencyMission(id, TLOC, MDUR, SIG, FD); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
+			EmergencyMissions.enqueue(EM, EM->GetPriority()); // Add the new mission to the emergency missions list
 		}
 		else
 		{
@@ -253,5 +259,3 @@ void MarsStation::PromoteMission(int ID)
 MarsStation::~MarsStation()
 {
 }
-
-

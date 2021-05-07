@@ -75,7 +75,9 @@ void Rover::DecrementMissionsLeft() {
 	missionLeft--;
 }
 
-
+int Rover::getMissionsLeft() {
+	return missionLeft;
+}
 
 void Rover::operator =(const Rover& r) {
 

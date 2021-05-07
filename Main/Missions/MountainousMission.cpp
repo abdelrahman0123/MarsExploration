@@ -1,9 +1,9 @@
 #include "MountainousMission.h"
 
-MountainousMission::MountainousMission() {}//default constructor
+MountainousMission::MountainousMission():AutoPromote(0) {}//default constructor
 
 
-MountainousMission::MountainousMission(int a, int b, int c, int d, int e) :Mission(a, b, c, d, e)//non default constructor
+MountainousMission::MountainousMission(int a, int b, int c, int d, int e) :Mission(a, b, c, d, e),AutoPromote(0)//non default constructor
 {}
 
 
