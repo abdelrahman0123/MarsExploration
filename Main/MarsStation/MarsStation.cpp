@@ -366,6 +366,7 @@ void MarsStation::MoveRoverFromCheckupToAvailable() {
 				break;
 			case('P'):
 				AddToPolarRovers(r, r->getRoverSpeed());
+
 			}
 		}
 
