@@ -20,3 +20,7 @@ bool  MountainousMission::EndOfAutopromote()//check in the beginig of each day i
 	if (AutoPromote == 0)return true;
 	return false;
 }
+int MountainousMission::GetAutoPromotion()
+{
+	return AutoPromote;
+}

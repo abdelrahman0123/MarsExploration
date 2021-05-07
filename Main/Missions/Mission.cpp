@@ -1,11 +1,11 @@
 #include "Mission.h"
 
 
-Mission::Mission() :WD(0), ED(0), CD(0),MissionStatus(Waiting){}//default constructor
+Mission::Mission() :WD(0), ED(0), CD(0),Eperiod(0),MissionStatus(Waiting){}//default constructor
 
 Mission::Mission(int a, int b, int c, int d, int e) : ID(a), TLOC(b), MDUR(c), SIG(d), FD(e)//non default constructor
 {
-	WD = 0; ED = 0; CD = 0; MissionStatus = Waiting;
+	WD = 0; ED = 0; CD = 0; Eperiod = 0; MissionStatus = Waiting;
 }
 
 Mission::~Mission(){}//destructor
@@ -63,12 +63,13 @@ void Mission::IncrementWaitingDays()//inrement the number of waiting days of the
 { WD++; }
 
 void Mission::DecrementInexecutionDays()
-{ED--;}
+{Eperiod--;}
 
 void Mission::SetExecutionDays(int speed)//set the num of execution days 
 {
 	int way = (TLOC / speed) / 25;
 	ED = 2 * way + MDUR;
+	Eperiod = ED;
 }
 void Mission::SetCompletionDay()//set the day the mission was completed
 {
