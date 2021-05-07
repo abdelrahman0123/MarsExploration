@@ -5,19 +5,14 @@ class MarsStation
 {
 	// Lists
 	Queue<Event*> Events;
-	///
 	PriQ<EmergencyMission*> EmergencyMissions;
 	Queue<MountainousMission*> MountainousMissions;
 	Queue<PolarMission*> PolarMissions;
-
 	PriQ<Mission*> InExecutionMissions;
 	Queue<Mission*> CompletedMissions;
-
-	//////
 	PriQ<EmergencyRover*> EmergencyRovers;
 	PriQ<MountainousRover*> MountainousRovers;
 	PriQ<PolarRover*> PolarRovers;
-
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> RoversCheckup;
 	Queue<Mission*> CompletedMissions;
