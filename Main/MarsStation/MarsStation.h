@@ -5,22 +5,30 @@ class MarsStation
 {
 	// Lists
 	Queue<Event*> Events;
+	///
 	PriQ<EmergencyMission*> EmergencyMissions;
 	Queue<MountainousMission*> MountainousMissions;
 	Queue<PolarMission*> PolarMissions;
+
+	PriQ<Mission*> InExecutionMissions;
+	Queue<Mission*> CompletedMissions;
+
+	//////
 	PriQ<EmergencyRover*> EmergencyRovers;
 	PriQ<MountainousRover*> MountainousRovers;
 	PriQ<PolarRover*> PolarRovers;
-	PriQ<Mission*> InExecutionMissions;
+
 	PriQ<Rover*> InExecutionRovers;
-	PriQ<Rover*> RoversCheckup;
-	Queue<Mission*> CompletedMissions;
+	PriQ<Rover*> MaintenanceRovers;
+
+
+	
 public:
 	// Default Constructor
 	MarsStation();
 
 	// Add to Lists
-	void AddToEmergencyMissions(EmergencyMission* EM, int pri);
+	void AddToEmergencyMissions(EmergencyMission* EM, int sig);
 	void AddToMountainousMissions(MountainousMission* MM);
 	void AddToPolarMissions(PolarMission* PM);
 	void AddToEmergencyRovers(EmergencyRover* ER, int speed);
@@ -28,7 +36,7 @@ public:
 	void AddToPolarRovers(PolarRover* PR, int speed);
 	void AddToInExecutionMissions(Mission* M, int n);
 	void AddToInExecutionRovers(Rover* R, int n);
-	void AddToRoversCheckup(Rover* R, int n);
+	void AddToMaintenanceRovers(Rover* R, int n);
 	void AddToCompletedMissions(Mission* EM);
 
 	// Remove from Lists
@@ -40,7 +48,7 @@ public:
 	PolarRover* RemoveFromPolarRovers();
 	Mission* RemoveFromInExecutionMissions();
 	Rover* RemoveFromInExecutionRovers();
-	Rover* RemoveFromRoversCheckup();
+	Rover* RemoveFromMaintenanceRovers();
 	Mission* RemoveFromCompletedMissions();
 
 	// Cancel Mountainous Mission
@@ -48,6 +56,9 @@ public:
 
 	// Promote Mountainous Mission
 	void PromoteMission(int ID);
+
+	void UpdateMissions();
+	void HandleMission();
 
 	// Destructor
 	~MarsStation();

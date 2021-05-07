@@ -1,11 +1,13 @@
 #pragma once
 #include<iostream>
 using namespace std;
+enum status { Waiting, Inexecution, completed };
 class Mission
 {
 private:
 	int ID, TLOC, MDUR, SIG, FD, WD, ED, CD;
 	// id  location, duration,  significance, formulation day,waiting days,execution days,completion days
+	status MissionStatus;
 public:
 	//constuctor
 	Mission();
@@ -32,9 +34,12 @@ public:
 	void SetSignificance(int i);
 	void SetFormulationDay(int i);
 	void IncrementWaitingDays();
+	void DecrementInexecutionDays();
     void SetExecutionDays(int speed);
 	void SetCompletionDay();
-
+	void UpdateToExecution();
+	void UpdateToCompleted();
+	
 
 	//print format
 	void PrintMission();
