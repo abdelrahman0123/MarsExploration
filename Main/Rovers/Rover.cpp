@@ -9,9 +9,10 @@ Rover::Rover() {
 	missionsBeforeCheckup = 0;
 	missionLeft = 0;
 	maintenanceStatus = 0;
+	roverType = 'U';
 }
 
-Rover::Rover(int c, float s, Mission* m, bool av,int x) {
+Rover::Rover(int c, float s, Mission* m, bool av,int x,char t) {
 
 	checkupDuration = c;
 	speed = s;
@@ -20,6 +21,7 @@ Rover::Rover(int c, float s, Mission* m, bool av,int x) {
 	missionsBeforeCheckup = x;
 	missionLeft = x;
 	maintenanceStatus = 0;
+	roverType = t;
 }
 
 void Rover::setcheckupDuration(int c) {
@@ -45,6 +47,10 @@ void Rover::setMissionsBeforeCheckup(int x) {
 void Rover::setMaintenanceStatus(bool m) {
 	maintenanceStatus = m;
 	setAvailability(!m);
+}
+
+void Rover::setRoverType(char t) {
+	roverType = t;
 }
 
 int Rover::getcheckupDuration() {
@@ -77,6 +83,10 @@ void Rover::DecrementMissionsLeft() {
 
 int Rover::getMissionsLeft() {
 	return missionLeft;
+}
+
+char Rover::getRoverType() {
+	return roverType;
 }
 
 void Rover::operator =(const Rover& r) {
