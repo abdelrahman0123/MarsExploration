@@ -5,16 +5,24 @@ class MarsStation
 {
 	// Lists
 	Queue<Event*> Events;
+	///
 	PriQ<EmergencyMission*> EmergencyMissions;
 	Queue<MountainousMission*> MountainousMissions;
 	Queue<PolarMission*> PolarMissions;
+
+	PriQ<Mission*> InExecutionMissions;
+	Queue<Mission*> CompletedMissions;
+
+	//////
 	PriQ<EmergencyRover*> EmergencyRovers;
 	PriQ<MountainousRover*> MountainousRovers;
 	PriQ<PolarRover*> PolarRovers;
-	PriQ<Mission*> InExecutionMissions;
+
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> MaintenanceRovers;
-	Queue<Mission*> CompletedMissions;
+
+
+	
 public:
 	// Default Constructor
 	MarsStation();
@@ -48,6 +56,9 @@ public:
 
 	// Promote Mountainous Mission
 	void PromoteMission(int ID);
+
+	void UpdateMissions();
+	void HandleMission();
 
 	// Destructor
 	~MarsStation();

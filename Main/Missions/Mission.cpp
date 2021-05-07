@@ -1,11 +1,11 @@
 #include "Mission.h"
 
 
-Mission::Mission() :WD(0), ED(0), CD(0){}//default constructor
+Mission::Mission() :WD(0), ED(0), CD(0),MissionStatus(Waiting){}//default constructor
 
 Mission::Mission(int a, int b, int c, int d, int e) : ID(a), TLOC(b), MDUR(c), SIG(d), FD(e)//non default constructor
 {
-	WD = 0; ED = 0; CD = 0;
+	WD = 0; ED = 0; CD = 0; MissionStatus = Waiting;
 }
 
 Mission::~Mission(){}//destructor
@@ -62,6 +62,9 @@ void Mission::SetFormulationDay(int i)//set the formulation day
 void Mission::IncrementWaitingDays()//inrement the number of waiting days of the mission
 { WD++; }
 
+void Mission::DecrementInexecutionDays()
+{ED--;}
+
 void Mission::SetExecutionDays(int speed)//set the num of execution days 
 {
 	int way = (TLOC / speed) / 25;
@@ -75,4 +78,13 @@ void Mission::SetCompletionDay()//set the day the mission was completed
 void Mission::PrintMission()//print format
 {
 	cout << CD << "\t" << ID << "\t" << FD << "\t" << WD << "\t" << ED << endl;
+}
+
+void Mission::UpdateToExecution()
+{
+	MissionStatus = Inexecution;
+}
+void Mission::UpdateToCompleted()
+{
+	MissionStatus = completed;
 }
