@@ -41,7 +41,20 @@ void MarsStation::UpdateMissions()
 		MountainousMissions.dequeue(MM);
 		MM->IncrementWaitingDays();
 		MM->DecrementAutoPromotion();
-		MMQtemp.enqueue(MM);
+		if (MM->GetAutoPromotion() == 0)
+		{
+			int a, b, c, d, e;
+			a = MM->GetId();
+			b = MM->GetTargetLocation();
+			c = MM->GetMissDuration();
+			d = MM->GetSignificance();
+			e = MM->GetFormulationDay();
+			EmergencyMission*M = new EmergencyMission(a, b, c, d, e);
+			AddToEmergencyMissions(M, MM->GetSignificance());
+			delete MM;
+		}
+
+		else MMQtemp.enqueue(MM);
 	}
 	MountainousMissions = MMQtemp;
 	//inexecution
@@ -68,9 +81,11 @@ void MarsStation::HandleMission()
 		InExecutionMissions.peek(Temp);
 		if (Temp->GetExecutionDays() == 0)
 		{
-			InExecutionMissions.dequeue(Temp);
+			Temp=RemoveFromInExecutionMissions();
+			
 			Temp->UpdateToCompleted();
-			CompletedMissions.enqueue(Temp);
+			AddToCompletedMissions(Temp);
+			
 			/////EL ROVER BETA3 SARA $$$$$$$$$$$$$
 		}
 		else break;//$$$

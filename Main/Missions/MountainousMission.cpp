@@ -3,7 +3,7 @@
 MountainousMission::MountainousMission() {}//default constructor
 
 
-MountainousMission::MountainousMission(int a, int b, int c, int d, int e) :Mission(a, b, c, d, e), AutoPromote(0)//non default constructor
+MountainousMission::MountainousMission(int a, int b, int c, int d, int e) :Mission(a, b, c, d, e)//non default constructor
 {}
 
 
@@ -19,4 +19,8 @@ bool  MountainousMission::EndOfAutopromote()//check in the beginig of each day i
 {
 	if (AutoPromote == 0)return true;
 	return false;
+}
+int MountainousMission::GetAutoPromotion()
+{
+	return AutoPromote;
 }
