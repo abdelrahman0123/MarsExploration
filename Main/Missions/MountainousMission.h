@@ -4,7 +4,6 @@ class MountainousMission : public Mission
 {
 private:
 	int AutoPromote;
-	int count;
 public:
 	MountainousMission();
 	MountainousMission(int a, int b, int c, int d, int e);
