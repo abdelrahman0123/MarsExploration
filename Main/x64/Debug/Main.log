@@ -1,25 +1,22 @@
 ﻿  CancelEvent.cpp
-  Event.cpp
   FormulationEvent.cpp
 D:\Mars Exploration\Main\Events\FormulationEvent.cpp(16,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   PromoteEvent.cpp
   MarsStation.cpp
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(16,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  EmergencyMission.cpp
-  Mission.cpp
-  MountainousMission.cpp
-  PolarMission.cpp
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(23,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(302,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(316,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(331,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(362,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(365,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(368,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   EmergencyRover.cpp
   MountainousRover.cpp
   PolarRover.cpp
   Rover.cpp
   Source.cpp
-  UI.cpp
   Generating Code...
 D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyMission *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyRover *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<MountainousRover *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<PolarRover *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Mission *>::enqueue': not all control paths return a value
 D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Rover *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Mission *>::enqueue': not all control paths return a value
   Main.vcxproj -> D:\Mars Exploration\x64\Debug\Main.exe

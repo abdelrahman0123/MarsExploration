@@ -14,41 +14,43 @@ class MarsStation
 	Queue<Mission*> CompletedMissions;
 
 	//////
-	PriQ<EmergencyRover*> EmergencyRovers;
-	PriQ<MountainousRover*> MountainousRovers;
-	PriQ<PolarRover*> PolarRovers;
+	PriQ<Rover*> EmergencyRovers;
+	PriQ<Rover*> MountainousRovers;
+	PriQ<Rover*> PolarRovers;
 
 	PriQ<Rover*> InExecutionRovers;
-	PriQ<Rover*> MaintenanceRovers;
+	PriQ<Rover*> RoversCheckup;
 
-
+	int currentDay = 1;
 	
 public:
 	// Default Constructor
 	MarsStation();
-
+	
+	void IncrementCurrentDay();
+	int getCurrentDay();
 	// Add to Lists
 	void AddToEmergencyMissions(EmergencyMission* EM, int sig);
 	void AddToMountainousMissions(MountainousMission* MM);
 	void AddToPolarMissions(PolarMission* PM);
-	void AddToEmergencyRovers(EmergencyRover* ER, int speed);
-	void AddToMountainousRovers(MountainousRover* MR, int speed);
-	void AddToPolarRovers(PolarRover* PR, int speed);
+	void AddToEmergencyRovers(Rover* ER, int speed);
+	void AddToMountainousRovers(Rover* MR, int speed);
+	void AddToPolarRovers(Rover* PR, int speed);
 	void AddToInExecutionMissions(Mission* M, int n);
-	void AddToInExecutionRovers(Rover* R, int n);
-	void AddToMaintenanceRovers(Rover* R, int n);
+	void AddToInExecutionRovers(Rover* R, int n);//not needed
+	void AddToRoversCheckup(Rover* R, int n);//not needed
 	void AddToCompletedMissions(Mission* EM);
 
 	// Remove from Lists
 	EmergencyMission* RemoveFromEmergencyMissions();
 	MountainousMission* RemoveFromMountainousMissions();
 	PolarMission* RemoveFromPolarMissions();
-	EmergencyRover* RemoveFromEmergencyRovers();
-	MountainousRover* RemoveFromMountainousRovers();
-	PolarRover* RemoveFromPolarRovers();
+	Rover* RemoveFromEmergencyRovers();//not needed
+	Rover* RemoveFromMountainousRovers();//not needed
+	Rover* RemoveFromPolarRovers();//not needed
 	Mission* RemoveFromInExecutionMissions();
 	Rover* RemoveFromInExecutionRovers();
-	Rover* RemoveFromMaintenanceRovers();
+	Rover* RemoveFromRoversCheckup();
 	Mission* RemoveFromCompletedMissions();
 
 	// Cancel Mountainous Mission
@@ -60,6 +62,10 @@ public:
 	void UpdateMissions();
 	void HandleMission();
 
+	void MoveRoverFromAvailabeToBusy(Rover*);
+	void MoveRoverFromBusyToAvailable();
+	void MoveRoverFromAvailableToCheckup(Rover*);
+	void MoveRoverFromCheckupToAvailable();
 	// Destructor
 	~MarsStation();
 };
