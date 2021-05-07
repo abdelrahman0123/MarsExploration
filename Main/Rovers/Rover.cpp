@@ -1,19 +1,18 @@
-
 #pragma once
 #include "Rover.h"
 Rover::Rover() {
-
+	
 	checkupDuration = 0;
 	speed = 0;
 	assignedMission = nullptr;
-	available = 1;
+	available =1;
 	missionsBeforeCheckup = 0;
 	missionLeft = 0;
 	maintenanceStatus = 0;
 	roverType = 'U';
 }
 
-Rover::Rover(int c, float s, Mission* m, bool av, int x, char t) {
+Rover::Rover(int c, float s, Mission* m, bool av,int x,char t) {
 
 	checkupDuration = c;
 	speed = s;

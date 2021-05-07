@@ -19,46 +19,47 @@ class Rover
 public:
 
 	Rover(); //Default constructor.
-	//Sets every data member to 0, and pointers to NULL;
+	         //Sets every data member to 0, and pointers to NULL;
 
-	Rover(int c, float s, Mission* m, bool av, int x, char t); //User defined constructor
-
+	Rover(int c, float s, Mission* m, bool av, int x,char t); //User defined constructor
+	 
 	//SETTERS
 	void setcheckupDuration(int c);
-
+	
 	void setRoverSpeed(float s);
-
+	
 	void setAssignedMission(Mission *);
-
+	
 	void setAvailability(bool av);
-
+	
 	void setMissionsBeforeCheckup(int x);//The input from the txt file
-
+		
 	void setMaintenanceStatus(bool m);
-
+	
 	void setRoverType(char t);
 
 	//GETTERS
 	int getcheckupDuration();
-
+	
 	float getRoverSpeed();
-
+	
 	Mission* getAssignedMission();
-
+	
 	bool inMaintenance();
 
 	bool isAvailable();
-
+	
 	int getMissionsBeforeCheckUp();
-
+	
 	int getMissionsLeft();
-
+    
 	void DecrementMissionsLeft();//Decrements the ACTUAL number of missions left before checkup
 
 	char getRoverType();
-
+	
 	void operator =(const Rover& r);//Overloaded = operator
 
 	virtual ~Rover();
 
 };
+
