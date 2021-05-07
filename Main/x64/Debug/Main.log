@@ -1,37 +1,25 @@
-﻿Build started 5/7/2021 4:23:46 PM.
-     1>Project "C:\Users\49\Desktop\prog project mars\MarsExploration\Main\Main.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\koleya\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Events\CancelEvent.cpp Events\Event.cpp Events\FormulationEvent.cpp Events\PromoteEvent.cpp MarsStation\MarsStation.cpp Missions\EmergencyMission.cpp Missions\Mission.cpp Missions\MountainousMission.cpp Missions\PolarMission.cpp Rovers\EmergencyRover.cpp Rovers\MountainousRover.cpp Rovers\PolarRover.cpp Rovers\Rover.cpp Source.cpp UI\UI.cpp
-         UI.cpp
-         Source.cpp
-         Rover.cpp
-         PolarRover.cpp
-         MountainousRover.cpp
-         EmergencyRover.cpp
-         PolarMission.cpp
-     1>Missions\PolarMission.cpp(11): error C2600: 'PolarMission::~PolarMission' : cannot define a compiler-generated special member function (must be declared in the class first)
-         MountainousMission.cpp
-     1>Missions\MountainousMission.cpp(10): error C2600: 'MountainousMission::~MountainousMission' : cannot define a compiler-generated special member function (must be declared in the class first)
-         Mission.cpp
-         EmergencyMission.cpp
-         MarsStation.cpp
-     1>MarsStation\MarsStation.cpp(16): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
-         PromoteEvent.cpp
-         FormulationEvent.cpp
-     1>Events\FormulationEvent.cpp(28): error C2248: 'PolarMission::PolarMission' : cannot access private member declared in class 'PolarMission'
-                 c:\users\49\desktop\prog project mars\marsexploration\main\Missions\PolarMission.h(5) : see declaration of 'PolarMission::PolarMission'
-                 c:\users\49\desktop\prog project mars\marsexploration\main\Missions\PolarMission.h(3) : see declaration of 'PolarMission'
-         Event.cpp
-         CancelEvent.cpp
-         Generating Code...
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<PolarRover * __ptr64>::enqueue' : not all control paths return a value
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<MountainousRover * __ptr64>::enqueue' : not all control paths return a value
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<EmergencyMission * __ptr64>::enqueue' : not all control paths return a value
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<EmergencyRover * __ptr64>::enqueue' : not all control paths return a value
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<Mission * __ptr64>::enqueue' : not all control paths return a value
-     1>c:\users\49\desktop\prog project mars\marsexploration\main\datastructures\priq.h(68): warning C4715: 'PriQ<Rover * __ptr64>::enqueue' : not all control paths return a value
-     1>Done Building Project "C:\Users\49\Desktop\prog project mars\MarsExploration\Main\Main.vcxproj" (Build target(s)) -- FAILED.
-
-Build FAILED.
-
-Time Elapsed 00:00:37.33
+﻿  CancelEvent.cpp
+  Event.cpp
+  FormulationEvent.cpp
+D:\Mars Exploration\Main\Events\FormulationEvent.cpp(16,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  PromoteEvent.cpp
+  MarsStation.cpp
+D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(16,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  EmergencyMission.cpp
+  Mission.cpp
+  MountainousMission.cpp
+  PolarMission.cpp
+  EmergencyRover.cpp
+  MountainousRover.cpp
+  PolarRover.cpp
+  Rover.cpp
+  Source.cpp
+  UI.cpp
+  Generating Code...
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyMission *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyRover *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<MountainousRover *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<PolarRover *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Mission *>::enqueue': not all control paths return a value
+D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Rover *>::enqueue': not all control paths return a value
+  Main.vcxproj -> D:\Mars Exploration\x64\Debug\Main.exe
