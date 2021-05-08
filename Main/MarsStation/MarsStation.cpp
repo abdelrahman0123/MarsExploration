@@ -35,10 +35,10 @@ void MarsStation::UpdateMissions()
 	PolarMissions = PMQtemp;
 	//Mountainous
 	MountainousMission* MM;
-	Queue<MountainousMission*>MMQtemp;
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.dequeue(MM);
+		MM = MountainousMissions.getEntry(i);
 		MM->IncrementWaitingDays();
 		MM->DecrementAutoPromotion();
 		if (MM->GetAutoPromotion() == 0)
@@ -49,14 +49,12 @@ void MarsStation::UpdateMissions()
 			c = MM->GetMissDuration();
 			d = MM->GetSignificance();
 			e = MM->GetFormulationDay();
-			EmergencyMission*M = new EmergencyMission(a, b, c, d, e);
-			AddToEmergencyMissions(M, MM->GetSignificance());
+			EmergencyMission* EM = new EmergencyMission(a, b, c, d, e);
+			AddToEmergencyMissions(EM, EM->GetPriority());
 			delete MM;
 		}
-
-		else MMQtemp.enqueue(MM);
+		i++;
 	}
-	MountainousMissions = MMQtemp;
 	//inexecution
 	Mission*mission;
 	PriQ<Mission*>InExecutionTemp;
@@ -92,14 +90,14 @@ void MarsStation::HandleMission()
 	}
 
 }
-void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int sig)
+void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int pri)
 {
-	EmergencyMissions.enqueue(EM, sig);
+	EmergencyMissions.enqueue(EM, pri);
 }
 
 void MarsStation::AddToMountainousMissions(MountainousMission* MM)
 {
-	MountainousMissions.enqueue(MM);
+	MountainousMissions.insert(++MountMissionsCount, MM);
 }
 
 void MarsStation::AddToPolarMissions(PolarMission* PM)
@@ -140,7 +138,6 @@ void MarsStation::AddToRoversCheckup(Rover* R, int n)
 {
 	RoversCheckup.enqueue(R, n);
 	R->setAvailability(0);
-
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
@@ -155,10 +152,11 @@ EmergencyMission* MarsStation::RemoveFromEmergencyMissions()
 	return EM;
 }
 
-MountainousMission* MarsStation::RemoveFromMountainousMissions()
+MountainousMission* MarsStation::RemoveFromMountainousMissions(int i)
 {
-	MountainousMission* MM = NULL;
-	MountainousMissions.dequeue(MM);
+	MountainousMission* MM = MountainousMissions.getEntry(i);
+	MountainousMissions.remove(i);
+	MountMissionsCount--;
 	return MM;
 }
 
@@ -166,7 +164,6 @@ PolarMission* MarsStation::RemoveFromPolarMissions()
 {
 	PolarMission* PM = NULL;
 	PolarMissions.dequeue(PM);
-	
 	return PM;
 }
 
@@ -225,48 +222,56 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 	return M;
 }
 
+int MarsStation::getMountMissionsCount()
+{
+	return MountMissionsCount;
+}
+
+void MarsStation::IncrementMountMissionsCount()
+{
+	MountMissionsCount++;
+}
+
+void MarsStation::DecrementMountMissionsCount()
+{
+	MountMissionsCount--;
+}
+
 void MarsStation::CancelMission(int ID)
 {
-	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
-	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be cancelled
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.peek(M_Mission); // Get the first mission
-		if (M_Mission->GetId() == ID)
+		int MissionID = (MountainousMissions.getEntry(i))->GetId();
+		if (MissionID == ID)
 		{
-			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
+			RemoveFromMountainousMissions(i);
+			break;
 		}
-		else
-		{
-			MountainousMissions.dequeue(M_Mission);
-			temp.enqueue(M_Mission);
-			// If not found, remove mission and add it to the temp queue
-		}
+		i++;
 	}
-	MountainousMissions = temp; // Equate both queues
 }
 
 void MarsStation::PromoteMission(int ID)
 {
-	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
-	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be promoted to emergency
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.peek(M_Mission); // Get the first mission using peek function
-		if (M_Mission->GetId() == ID)
+		MountainousMission* M_Mission = MountainousMissions.getEntry(i);
+		int MissionID = M_Mission->GetId();
+		if (MissionID == ID)
 		{
-			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
-			EmergencyMission* EM = new EmergencyMission(); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
-			EmergencyMissions.enqueue(EM, M_Mission->GetSignificance()); // Add the new mission to the emergency missions list
+			int TLOC = M_Mission->GetTargetLocation();
+			int MDUR = M_Mission->GetMissDuration();
+			int SIG = M_Mission->GetSignificance();
+			int FD = M_Mission->GetFormulationDay();
+			RemoveFromMountainousMissions(i);
+			EmergencyMission* EM = new EmergencyMission(MissionID, TLOC, MDUR, SIG, FD);
+			AddToEmergencyMissions(EM, EM->GetPriority());
+			break;
 		}
-		else
-		{
-			MountainousMissions.dequeue(M_Mission);
-			temp.enqueue(M_Mission);
-			// If not found, remove mission and add it to the temp queue
-		}
+		i++;
 	}
-	MountainousMissions = temp; // Equate both queues
 }
 
 void MarsStation::MoveRoverFromAvailabeToBusy(Rover*r) {
