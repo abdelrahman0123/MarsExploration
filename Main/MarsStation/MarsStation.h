@@ -15,9 +15,18 @@ class MarsStation
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> MaintenanceRovers;
 	Queue<Mission*> CompletedMissions;
+
+	//Object to get input and print output
+	UI interact;
+
+	//Auto promotion limit
+	int AutoP;
 public:
-	// Default Constructor
+	// Default Constructorb
 	MarsStation();
+
+	//Reading the input file
+	void ReadInput();
 
 	// Add to Lists
 	void AddToEmergencyMissions(EmergencyMission* EM, int sig);
@@ -30,6 +39,7 @@ public:
 	void AddToInExecutionRovers(Rover* R, int n);
 	void AddToMaintenanceRovers(Rover* R, int n);
 	void AddToCompletedMissions(Mission* EM);
+	void AddToEvents(Event* newEvent);
 
 	// Remove from Lists
 	EmergencyMission* RemoveFromEmergencyMissions();

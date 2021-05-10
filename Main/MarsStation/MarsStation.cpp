@@ -2,6 +2,79 @@
 
 MarsStation::MarsStation()
 {
+	
+}
+
+void MarsStation::ReadInput()
+{
+	////////// Reading Rovers Data //////////
+	interact.readRovers();
+	Queue<int>* er = interact.getEmRovers();
+	Queue<int>* pr = interact.getPolarRovers();
+	Queue<int>* mr = interact.getMountRovers();
+
+	int speed;
+	EmergencyRover* tempEmergency;
+	while (!er->isEmpty())
+	{
+		tempEmergency = new EmergencyRover();	//**SARAH**//Edit the non-default constructor /// Make the speed first
+		er->dequeue(speed);
+		AddToEmergencyRovers(tempEmergency, speed);
+	}
+
+	PolarRover* tempPolar;
+	while (!pr->isEmpty())
+	{
+		tempPolar = new PolarRover();
+		pr->dequeue(speed);
+		AddToPolarRovers(tempPolar, speed);
+	}
+
+	MountainousRover* tempMount;
+	while (!mr->isEmpty())
+	{
+		tempMount = new MountainousRover();
+		mr->dequeue(speed);
+		AddToMountainousRovers(tempMount, speed);
+	}
+
+	// Setting the auto promotion limit
+	AutoP = interact.getAutoP();
+
+	//Reading the events Data
+	int n = interact.getNumofEvents();
+	Queue<int>* eventNumbers;
+	int ED, ID, TLOC, MissionDur, SIG;
+	for (int i = 0; i < n; i++)
+	{
+		eventNumbers = interact.getEvent();
+		eventNumbers->dequeue(ED);
+		eventNumbers->dequeue(ID);
+		if (!eventNumbers->isEmpty())
+		{
+			eventNumbers->dequeue(TLOC);
+			eventNumbers->dequeue(MissionDur);
+			eventNumbers->dequeue(SIG);
+
+			Event* evptr = new FormulationEvent(interact.getMT(), ED, ID, TLOC, MissionDur, SIG);
+			AddToEvents(evptr);
+		}
+		else
+		{
+			EventType ET = interact.getET();
+			if (ET == Cancel)
+			{
+				Event* evptr = new CancelEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+			else
+			{
+				Event* evptr = new PromoteEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+		}
+		
+	}
 }
 
 void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int sig)
@@ -52,6 +125,11 @@ void MarsStation::AddToMaintenanceRovers(Rover* R, int n)
 void MarsStation::AddToCompletedMissions(Mission* M)
 {
 	CompletedMissions.enqueue(M);
+}
+
+void MarsStation::AddToEvents(Event* newEvent)
+{
+	Events.enqueue(newEvent);
 }
 
 EmergencyMission* MarsStation::RemoveFromEmergencyMissions()
