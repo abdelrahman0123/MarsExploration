@@ -39,7 +39,7 @@ void MarsStation::ReadInput()
 	}
 
 	// Setting the auto promotion limit
-	AutoP = interact.getAutoP();
+	int AutoP = interact.getAutoP();
 
 	//Reading the events Data
 	int n = interact.getNumofEvents();
@@ -223,6 +223,13 @@ void MarsStation::AddToCompletedMissions(Mission* M)
 void MarsStation::AddToEvents(Event* newEvent)
 {
 	Events.enqueue(newEvent);
+}
+
+Event* MarsStation::RemoveFromEvents()
+{
+	Event* E = NULL;
+	Events.dequeue(E);
+	return E;
 }
 
 EmergencyMission* MarsStation::RemoveFromEmergencyMissions()

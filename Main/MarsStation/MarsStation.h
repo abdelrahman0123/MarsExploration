@@ -18,6 +18,8 @@ class MarsStation
 	PriQ<Rover*> PolarRovers;
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> RoversCheckup;
+
+	UI interact;
 	int currentDay = 1;
 	int MountMissionsCount = 0;
 	int AutoPromotionLimit;
@@ -25,9 +27,12 @@ public:
 	// Default Constructor
 	MarsStation();
 	
+	void ReadInput();
+
 	void IncrementCurrentDay();
 	int getCurrentDay();
 	// Add to Lists
+	void AddToEvents(Event* newEvent);
 	void AddToEmergencyMissions(EmergencyMission* EM, int pri);
 	void AddToMountainousMissions(MountainousMission* MM);
 	void AddToPolarMissions(PolarMission* PM);
@@ -40,6 +45,7 @@ public:
 	void AddToCompletedMissions(Mission* EM);
 
 	// Remove from Lists
+	Event* RemoveFromEvents();
 	EmergencyMission* RemoveFromEmergencyMissions();
 	MountainousMission* RemoveFromMountainousMissions(int i = 1);
 	PolarMission* RemoveFromPolarMissions();
