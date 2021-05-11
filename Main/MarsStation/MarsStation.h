@@ -20,6 +20,7 @@ class MarsStation
 	PriQ<Rover*> RoversCheckup;
 	int currentDay = 1;
 	int MountMissionsCount = 0;
+	int AutoPromotionLimit;
 public:
 	// Default Constructor
 	MarsStation();
@@ -30,9 +31,9 @@ public:
 	void AddToEmergencyMissions(EmergencyMission* EM, int pri);
 	void AddToMountainousMissions(MountainousMission* MM);
 	void AddToPolarMissions(PolarMission* PM);
-	void AddToEmergencyRovers(Rover* ER, int speed);
-	void AddToMountainousRovers(Rover* MR, int speed);
-	void AddToPolarRovers(Rover* PR, int speed);
+	void AddToEmergencyRovers(Rover* ER, float speed);
+	void AddToMountainousRovers(Rover* MR, float speed);
+	void AddToPolarRovers(Rover* PR, float speed);
 	void AddToInExecutionMissions(Mission* M, int n);
 	void AddToInExecutionRovers(Rover* R, int n);
 	void AddToRoversCheckup(Rover* R, int n);
@@ -54,6 +55,7 @@ public:
 	void IncrementMountMissionsCount();
 	void DecrementMountMissionsCount();
 
+	int getAutoP();
 	// Cancel Mountainous Mission
 	void CancelMission(int ID);
 

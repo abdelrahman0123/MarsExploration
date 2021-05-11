@@ -18,7 +18,7 @@ void FormulationEvent::Execute()
 	}
 	else if (MType == Mountainous)
 	{
-		MountainousMission* MM = new MountainousMission(this->getMissionID(), TLOC, MDUR, SIG, this->getEventDay()); // Create new mountainous mission
+		MountainousMission* MM = new MountainousMission(this->getMissionID(), TLOC, MDUR, SIG, this->getEventDay(), Station->getAutoP()); // Create new mountainous mission
 		Station->AddToMountainousMissions(MM); // Add it to the list
 		return;
 	}

@@ -105,20 +105,22 @@ void MarsStation::AddToPolarMissions(PolarMission* PM)
 	PolarMissions.enqueue(PM);
 }
 
-void MarsStation::AddToEmergencyRovers(Rover* ER, int speed)
+void MarsStation::AddToEmergencyRovers(Rover* ER, float speed)
 {
 	EmergencyRovers.enqueue(ER, speed);
+	ER->setAvailability(1);
 }
 
-void MarsStation::AddToMountainousRovers(Rover* MR, int speed)
+void MarsStation::AddToMountainousRovers(Rover* MR, float speed)
 {
 	MountainousRovers.enqueue(MR, speed);
 	MR->setAvailability(1);
 }
 
-void MarsStation::AddToPolarRovers(Rover* PR, int speed)
+void MarsStation::AddToPolarRovers(Rover* PR, float speed)
 {
 	PolarRovers.enqueue(PR, speed);
+	PR->setAvailability(1);
 }
 
 void MarsStation::AddToInExecutionMissions(Mission* M, int n)
@@ -235,6 +237,11 @@ void MarsStation::IncrementMountMissionsCount()
 void MarsStation::DecrementMountMissionsCount()
 {
 	MountMissionsCount--;
+}
+
+int MarsStation::getAutoP()
+{
+	return AutoPromotionLimit;
 }
 
 void MarsStation::CancelMission(int ID)
