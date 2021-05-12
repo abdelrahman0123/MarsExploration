@@ -206,13 +206,13 @@ void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 {
 	InExecutionRovers.enqueue(R, n);
 	R->setAvailability(0);
-	R->DecrementMissionsLeft();
 }
 
 void MarsStation::AddToRoversCheckup(Rover* R, int n)
 {
 	RoversCheckup.enqueue(R, n);
 	R->setAvailability(0);
+	R->setMaintenanceStatus(1);
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
@@ -289,7 +289,6 @@ Rover* MarsStation::RemoveFromInExecutionRovers()
 {
 	Rover* R = NULL;
 	InExecutionRovers.dequeue(R);
-	R->setAvailability(1);
 	return R;
 }
 
@@ -298,7 +297,7 @@ Rover* MarsStation::RemoveFromRoversCheckup()
 	Rover* R = NULL;
 	RoversCheckup.dequeue(R);
 	R->setAvailability(1);
-
+	R->setMaintenanceStatus(0);
 	return R;
 }
 
@@ -307,6 +306,89 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 	Mission* M = NULL;
 	CompletedMissions.dequeue(M);
 	return M;
+}
+
+bool MarsStation::AssignEmergencyMission()
+{
+	EmergencyMission* EM = NULL;
+	EmergencyMissions.peek(EM);
+	if (!EM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'E'))
+		if (!CheckAvailableRover(R, 'M'))
+			if (!CheckAvailableRover(R, 'P'))
+				return false;
+	EM = RemoveFromEmergencyMissions();
+	AddToInExecutionMissions(EM, EM->GetExecutionDays());
+	AssignRoverToMission(R, EM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::AssignMountainousMission()
+{
+	MountainousMission* MM = NULL;
+	MM = MountainousMissions.getEntry(1);
+	if (!MM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'M'))
+		if (!CheckAvailableRover(R, 'E'))
+			return false;
+	MM = RemoveFromMountainousMissions();
+	AddToInExecutionMissions(MM, MM->GetExecutionDays());
+	AssignRoverToMission(R, MM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::AssignPolarMission()
+{
+	PolarMission* PM = NULL;
+	PolarMissions.peek(PM);
+	if (!PM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'P'))
+		return false;
+	PM = RemoveFromPolarMissions();
+	AddToInExecutionMissions(PM, PM->GetExecutionDays());
+	AssignRoverToMission(R, PM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::CheckAvailableRover(Rover*& R, char Type)
+{
+	if (Type == 'E')
+	{
+		EmergencyRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	else if (Type == 'M')
+	{
+		MountainousRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	else
+	{
+		PolarRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	return false;
+}
+
+void MarsStation::AssignRoverToMission(Rover* R, Mission* M)
+{
+	R->setAssignedMission(M);
+	R->DecrementMissionsLeft();
 }
 
 int MarsStation::getMountMissionsCount()
@@ -389,7 +471,6 @@ void MarsStation::MoveRoverFromAvailabeToBusy(Rover*r) {
 		AddToInExecutionRovers(r, r->getAssignedMission()->GetExecutionDays());
 	}
 			 break;
-
 	}
 }
 
@@ -452,11 +533,8 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 }
 
 void MarsStation::MoveRoverFromAvailableToCheckup(Rover* r) {
-	
-	AddToRoversCheckup(r, r->getcheckupDuration());
-		r->setAvailability(0);
-		r->setMaintenanceStatus(1);
-	
+	r->setLastCheckupDay(currentDay);
+	AddToRoversCheckup(r, r->getLastCheckupDay());
 }
 
 void MarsStation::MoveRoverFromCheckupToAvailable() {
@@ -464,7 +542,7 @@ void MarsStation::MoveRoverFromCheckupToAvailable() {
 	while(!RoversCheckup.isEmpty()){
 		Rover* r = nullptr;
 		RoversCheckup.peek(r);
-		if (!r->inMaintenance())//if r->getLastCheckUpDay==currentday
+		if (r->getLastCheckupDay() == currentDay)//if r->getLastCheckUpDay==currentday
 		{
 			r=RemoveFromRoversCheckup();
 			char type = r->getRoverType();
