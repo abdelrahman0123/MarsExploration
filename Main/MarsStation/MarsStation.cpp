@@ -118,13 +118,13 @@ void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 {
 	InExecutionRovers.enqueue(R, n);
 	R->setAvailability(0);
-	R->DecrementMissionsLeft();
 }
 
 void MarsStation::AddToRoversCheckup(Rover* R, int n)
 {
 	RoversCheckup.enqueue(R, n);
 	R->setAvailability(0);
+	R->setMaintenanceStatus(1);
 
 }
 
@@ -323,7 +323,7 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 				r = RemoveFromInExecutionRovers();
 
 				if (r->getMissionsLeft() == 0)
-				{
+				{//replace
 					MoveRoverFromAvailableToCheckup(r);
 					break;
 				}
@@ -332,18 +332,20 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 				}
 
 			}
-					 break;
+		 
 
 			}
-		} //#### ELSE, A FUNCTION TO DECREMENT ALL DAYS LEFT SHOULD BE ADDED ####
+		
+		}
+		else  //no missions finished on the current day
+			break;//#### ELSE, A FUNCTION TO DECREMENT ALL DAYS LEFT SHOULD BE ADDED ####
 	}
 }
 
 void MarsStation::MoveRoverFromAvailableToCheckup(Rover* r) {
 	
 	AddToRoversCheckup(r, r->getcheckupDuration());
-		r->setAvailability(0);
-		r->setMaintenanceStatus(1);
+		//set last checkup day==current day + checkup duration
 	
 }
 
