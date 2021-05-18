@@ -57,6 +57,7 @@ public:
 	Rover* RemoveFromRoversCheckup();
 	Mission* RemoveFromCompletedMissions();
 
+	// Assignment
 	bool AssignEmergencyMission();
 	bool AssignMountainousMission();
 	bool AssignPolarMission();
@@ -65,6 +66,7 @@ public:
 
 	void AssignRoverToMission(Rover* R, Mission* M);
 
+	// Mountainous Missions Count
 	int getMountMissionsCount();
 	void IncrementMountMissionsCount();
 	void DecrementMountMissionsCount();

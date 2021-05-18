@@ -321,6 +321,7 @@ bool MarsStation::AssignEmergencyMission()
 				return false;
 	EM = RemoveFromEmergencyMissions();
 	AddToInExecutionMissions(EM, EM->GetExecutionDays());
+	EM->UpdateToExecution();
 	AssignRoverToMission(R, EM);
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
@@ -338,6 +339,7 @@ bool MarsStation::AssignMountainousMission()
 			return false;
 	MM = RemoveFromMountainousMissions();
 	AddToInExecutionMissions(MM, MM->GetExecutionDays());
+	MM->UpdateToExecution();
 	AssignRoverToMission(R, MM);
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
@@ -354,6 +356,7 @@ bool MarsStation::AssignPolarMission()
 		return false;
 	PM = RemoveFromPolarMissions();
 	AddToInExecutionMissions(PM, PM->GetExecutionDays());
+	PM->UpdateToExecution();
 	AssignRoverToMission(R, PM);
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
