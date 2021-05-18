@@ -2,6 +2,79 @@
 
 MarsStation::MarsStation()
 {
+	
+}
+
+void MarsStation::ReadInput()
+{
+	////////// Reading Rovers Data //////////
+	interact.readRovers();
+	Queue<int>* er = interact.getEmRovers();
+	Queue<int>* pr = interact.getPolarRovers();
+	Queue<int>* mr = interact.getMountRovers();
+
+	int speed;
+	EmergencyRover* tempEmergency;
+	while (!er->isEmpty())
+	{
+		tempEmergency = new EmergencyRover();	//**SARAH**//Edit the non-default constructor /// Make the speed first
+		er->dequeue(speed);
+		AddToEmergencyRovers(tempEmergency, speed);
+	}
+
+	PolarRover* tempPolar;
+	while (!pr->isEmpty())
+	{
+		tempPolar = new PolarRover();
+		pr->dequeue(speed);
+		AddToPolarRovers(tempPolar, speed);
+	}
+
+	MountainousRover* tempMount;
+	while (!mr->isEmpty())
+	{
+		tempMount = new MountainousRover();
+		mr->dequeue(speed);
+		AddToMountainousRovers(tempMount, speed);
+	}
+
+	// Setting the auto promotion limit
+	int AutoP = interact.getAutoP();
+
+	//Reading the events Data
+	int n = interact.getNumofEvents();
+	Queue<int>* eventNumbers;
+	int ED, ID, TLOC, MissionDur, SIG;
+	for (int i = 0; i < n; i++)
+	{
+		eventNumbers = interact.getEvent();
+		eventNumbers->dequeue(ED);
+		eventNumbers->dequeue(ID);
+		if (!eventNumbers->isEmpty())
+		{
+			eventNumbers->dequeue(TLOC);
+			eventNumbers->dequeue(MissionDur);
+			eventNumbers->dequeue(SIG);
+
+			Event* evptr = new FormulationEvent(interact.getMT(), ED, ID, TLOC, MissionDur, SIG);
+			AddToEvents(evptr);
+		}
+		else
+		{
+			EventType ET = interact.getET();
+			if (ET == Cancel)
+			{
+				Event* evptr = new CancelEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+			else
+			{
+				Event* evptr = new PromoteEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+		}
+		
+	}
 }
 
 void MarsStation::IncrementCurrentDay() {
@@ -35,15 +108,26 @@ void MarsStation::UpdateMissions()
 	PolarMissions = PMQtemp;
 	//Mountainous
 	MountainousMission* MM;
-	Queue<MountainousMission*>MMQtemp;
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.dequeue(MM);
+		MM = MountainousMissions.getEntry(i);
 		MM->IncrementWaitingDays();
 		MM->DecrementAutoPromotion();
-		MMQtemp.enqueue(MM);
+		if (MM->GetAutoPromotion() == 0)
+		{
+			int a, b, c, d, e;
+			a = MM->GetId();
+			b = MM->GetTargetLocation();
+			c = MM->GetMissDuration();
+			d = MM->GetSignificance();
+			e = MM->GetFormulationDay();
+			EmergencyMission* EM = new EmergencyMission(a, b, c, d, e);
+			AddToEmergencyMissions(EM, EM->GetPriority());
+			delete MM;
+		}
+		i++;
 	}
-	MountainousMissions = MMQtemp;
 	//inexecution
 	Mission*mission;
 	PriQ<Mission*>InExecutionTemp;
@@ -68,23 +152,25 @@ void MarsStation::HandleMission()
 		InExecutionMissions.peek(Temp);
 		if (Temp->GetExecutionDays() == 0)
 		{
-			InExecutionMissions.dequeue(Temp);
+			Temp=RemoveFromInExecutionMissions();
+			
 			Temp->UpdateToCompleted();
-			CompletedMissions.enqueue(Temp);
+			AddToCompletedMissions(Temp);
+			
 			/////EL ROVER BETA3 SARA $$$$$$$$$$$$$
 		}
 		else break;//$$$
 	}
 
 }
-void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int sig)
+void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int pri)
 {
-	EmergencyMissions.enqueue(EM, sig);
+	EmergencyMissions.enqueue(EM, pri);
 }
 
 void MarsStation::AddToMountainousMissions(MountainousMission* MM)
 {
-	MountainousMissions.enqueue(MM);
+	MountainousMissions.insert(++MountMissionsCount, MM);
 }
 
 void MarsStation::AddToPolarMissions(PolarMission* PM)
@@ -92,20 +178,22 @@ void MarsStation::AddToPolarMissions(PolarMission* PM)
 	PolarMissions.enqueue(PM);
 }
 
-void MarsStation::AddToEmergencyRovers(Rover* ER, int speed)
+void MarsStation::AddToEmergencyRovers(Rover* ER, float speed)
 {
 	EmergencyRovers.enqueue(ER, speed);
+	ER->setAvailability(1);
 }
 
-void MarsStation::AddToMountainousRovers(Rover* MR, int speed)
+void MarsStation::AddToMountainousRovers(Rover* MR, float speed)
 {
 	MountainousRovers.enqueue(MR, speed);
 	MR->setAvailability(1);
 }
 
-void MarsStation::AddToPolarRovers(Rover* PR, int speed)
+void MarsStation::AddToPolarRovers(Rover* PR, float speed)
 {
 	PolarRovers.enqueue(PR, speed);
+	PR->setAvailability(1);
 }
 
 void MarsStation::AddToInExecutionMissions(Mission* M, int n)
@@ -125,12 +213,23 @@ void MarsStation::AddToRoversCheckup(Rover* R, int n)
 	RoversCheckup.enqueue(R, n);
 	R->setAvailability(0);
 	R->setMaintenanceStatus(1);
-
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
 {
 	CompletedMissions.enqueue(M);
+}
+
+void MarsStation::AddToEvents(Event* newEvent)
+{
+	Events.enqueue(newEvent);
+}
+
+Event* MarsStation::RemoveFromEvents()
+{
+	Event* E = NULL;
+	Events.dequeue(E);
+	return E;
 }
 
 EmergencyMission* MarsStation::RemoveFromEmergencyMissions()
@@ -140,10 +239,11 @@ EmergencyMission* MarsStation::RemoveFromEmergencyMissions()
 	return EM;
 }
 
-MountainousMission* MarsStation::RemoveFromMountainousMissions()
+MountainousMission* MarsStation::RemoveFromMountainousMissions(int i)
 {
-	MountainousMission* MM = NULL;
-	MountainousMissions.dequeue(MM);
+	MountainousMission* MM = MountainousMissions.getEntry(i);
+	MountainousMissions.remove(i);
+	MountMissionsCount--;
 	return MM;
 }
 
@@ -151,7 +251,6 @@ PolarMission* MarsStation::RemoveFromPolarMissions()
 {
 	PolarMission* PM = NULL;
 	PolarMissions.dequeue(PM);
-	
 	return PM;
 }
 
@@ -190,7 +289,6 @@ Rover* MarsStation::RemoveFromInExecutionRovers()
 {
 	Rover* R = NULL;
 	InExecutionRovers.dequeue(R);
-	R->setAvailability(1);
 	return R;
 }
 
@@ -199,7 +297,7 @@ Rover* MarsStation::RemoveFromRoversCheckup()
 	Rover* R = NULL;
 	RoversCheckup.dequeue(R);
 	R->setAvailability(1);
-
+	R->setMaintenanceStatus(0);
 	return R;
 }
 
@@ -210,48 +308,147 @@ Mission* MarsStation::RemoveFromCompletedMissions()
 	return M;
 }
 
+bool MarsStation::AssignEmergencyMission()
+{
+	EmergencyMission* EM = NULL;
+	EmergencyMissions.peek(EM);
+	if (!EM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'E'))
+		if (!CheckAvailableRover(R, 'M'))
+			if (!CheckAvailableRover(R, 'P'))
+				return false;
+	EM = RemoveFromEmergencyMissions();
+	AddToInExecutionMissions(EM, EM->GetExecutionDays());
+	EM->UpdateToExecution();
+	AssignRoverToMission(R, EM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::AssignMountainousMission()
+{
+	MountainousMission* MM = NULL;
+	MM = MountainousMissions.getEntry(1);
+	if (!MM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'M'))
+		if (!CheckAvailableRover(R, 'E'))
+			return false;
+	MM = RemoveFromMountainousMissions();
+	AddToInExecutionMissions(MM, MM->GetExecutionDays());
+	MM->UpdateToExecution();
+	AssignRoverToMission(R, MM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::AssignPolarMission()
+{
+	PolarMission* PM = NULL;
+	PolarMissions.peek(PM);
+	if (!PM)
+		return false;
+	Rover* R = NULL;
+	if (!CheckAvailableRover(R, 'P'))
+		return false;
+	PM = RemoveFromPolarMissions();
+	AddToInExecutionMissions(PM, PM->GetExecutionDays());
+	PM->UpdateToExecution();
+	AssignRoverToMission(R, PM);
+	MoveRoverFromAvailabeToBusy(R);
+	return true;
+}
+
+bool MarsStation::CheckAvailableRover(Rover*& R, char Type)
+{
+	if (Type == 'E')
+	{
+		EmergencyRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	else if (Type == 'M')
+	{
+		MountainousRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	else
+	{
+		PolarRovers.peek(R);
+		if (R)
+			return true;
+		return false;
+	}
+	return false;
+}
+
+void MarsStation::AssignRoverToMission(Rover* R, Mission* M)
+{
+	R->setAssignedMission(M);
+	R->DecrementMissionsLeft();
+}
+
+int MarsStation::getMountMissionsCount()
+{
+	return MountMissionsCount;
+}
+
+void MarsStation::IncrementMountMissionsCount()
+{
+	MountMissionsCount++;
+}
+
+void MarsStation::DecrementMountMissionsCount()
+{
+	MountMissionsCount--;
+}
+
+int MarsStation::getAutoP()
+{
+	return AutoPromotionLimit;
+}
+
 void MarsStation::CancelMission(int ID)
 {
-	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
-	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be cancelled
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.peek(M_Mission); // Get the first mission
-		if (M_Mission->GetId() == ID)
+		int MissionID = (MountainousMissions.getEntry(i))->GetId();
+		if (MissionID == ID)
 		{
-			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
+			RemoveFromMountainousMissions(i);
+			break;
 		}
-		else
-		{
-			MountainousMissions.dequeue(M_Mission);
-			temp.enqueue(M_Mission);
-			// If not found, remove mission and add it to the temp queue
-		}
+		i++;
 	}
-	MountainousMissions = temp; // Equate both queues
 }
 
 void MarsStation::PromoteMission(int ID)
 {
-	MountainousMission* M_Mission = NULL; // Represents the first mission entered in the mountainous missions queue
-	Queue<MountainousMission*> temp; // Temp queue to store all mountainous missions except the one to be promoted to emergency
+	int i = 1;
 	while (!MountainousMissions.isEmpty())
 	{
-		MountainousMissions.peek(M_Mission); // Get the first mission using peek function
-		if (M_Mission->GetId() == ID)
+		MountainousMission* M_Mission = MountainousMissions.getEntry(i);
+		int MissionID = M_Mission->GetId();
+		if (MissionID == ID)
 		{
-			MountainousMissions.dequeue(M_Mission); // delete it from the list if found
-			EmergencyMission* EM = new EmergencyMission(); // Create a new E.Mission and give it the same info of the M.Mission in the constructor
-			EmergencyMissions.enqueue(EM, M_Mission->GetSignificance()); // Add the new mission to the emergency missions list
+			int TLOC = M_Mission->GetTargetLocation();
+			int MDUR = M_Mission->GetMissDuration();
+			int SIG = M_Mission->GetSignificance();
+			int FD = M_Mission->GetFormulationDay();
+			RemoveFromMountainousMissions(i);
+			EmergencyMission* EM = new EmergencyMission(MissionID, TLOC, MDUR, SIG, FD);
+			AddToEmergencyMissions(EM, EM->GetPriority());
+			break;
 		}
-		else
-		{
-			MountainousMissions.dequeue(M_Mission);
-			temp.enqueue(M_Mission);
-			// If not found, remove mission and add it to the temp queue
-		}
+		i++;
 	}
-	MountainousMissions = temp; // Equate both queues
 }
 
 void MarsStation::MoveRoverFromAvailabeToBusy(Rover*r) {
@@ -277,7 +474,6 @@ void MarsStation::MoveRoverFromAvailabeToBusy(Rover*r) {
 		AddToInExecutionRovers(r, r->getAssignedMission()->GetExecutionDays());
 	}
 			 break;
-
 	}
 }
 
@@ -323,7 +519,7 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 				r = RemoveFromInExecutionRovers();
 
 				if (r->getMissionsLeft() == 0)
-				{//replace
+				{
 					MoveRoverFromAvailableToCheckup(r);
 					break;
 				}
@@ -332,21 +528,16 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 				}
 
 			}
-		 
+					 break;
 
 			}
-		
-		}
-		else  //no missions finished on the current day
-			break;//#### ELSE, A FUNCTION TO DECREMENT ALL DAYS LEFT SHOULD BE ADDED ####
+		} //#### ELSE, A FUNCTION TO DECREMENT ALL DAYS LEFT SHOULD BE ADDED ####
 	}
 }
 
 void MarsStation::MoveRoverFromAvailableToCheckup(Rover* r) {
-	
-	AddToRoversCheckup(r, r->getcheckupDuration());
-		//set last checkup day==current day + checkup duration
-	
+	r->setLastCheckupDay(currentDay);
+	AddToRoversCheckup(r, r->getLastCheckupDay());
 }
 
 void MarsStation::MoveRoverFromCheckupToAvailable() {
@@ -354,7 +545,7 @@ void MarsStation::MoveRoverFromCheckupToAvailable() {
 	while(!RoversCheckup.isEmpty()){
 		Rover* r = nullptr;
 		RoversCheckup.peek(r);
-		if (!r->inMaintenance())//if r->getLastCheckUpDay==currentday
+		if (r->getLastCheckupDay() == currentDay)//if r->getLastCheckUpDay==currentday
 		{
 			r=RemoveFromRoversCheckup();
 			char type = r->getRoverType();

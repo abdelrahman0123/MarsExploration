@@ -6,9 +6,11 @@ private:
 	int AutoPromote;
 public:
 	MountainousMission();
-	MountainousMission(int a, int b, int c, int d, int e);
+	~MountainousMission();
+	MountainousMission(int a, int b, int c, int d, int e, int f);
 	void DecrementAutoPromotion();//decrement the rest of auto promotion days (each day)
 	bool EndOfAutopromote();//check at the beging of each day
-	~MountainousMission();
+	int GetAutoPromotion();
+	void SetAutoPromotion(int f);
 };
 

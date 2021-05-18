@@ -53,6 +53,11 @@ void Rover::setRoverType(char t) {
 	roverType = t;
 }
 
+void Rover::setLastCheckupDay(int day)
+{
+	LastCheckupDay = day + checkupDuration;
+}
+
 int Rover::getcheckupDuration() {
 	return checkupDuration;
 }
@@ -87,6 +92,11 @@ int Rover::getMissionsLeft() {
 
 char Rover::getRoverType() {
 	return roverType;
+}
+
+int Rover::getLastCheckupDay()
+{
+	return LastCheckupDay;
 }
 
 void Rover::operator =(const Rover& r) {

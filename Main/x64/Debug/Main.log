@@ -1,13 +1,35 @@
-﻿  MarsStation.cpp
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(23,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(302,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(316,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(331,48): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(362,47): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(365,45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\MarsStation\MarsStation.cpp(368,41): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyMission *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Rover *>::enqueue': not all control paths return a value
-D:\Mars Exploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Mission *>::enqueue': not all control paths return a value
-  LINK : D:\Mars Exploration\x64\Debug\Main.exe not found or not built by the last incremental link; performing full link
-  Main.vcxproj -> D:\Mars Exploration\x64\Debug\Main.exe
+﻿Build started 5/7/2021 5:00:04 PM.
+     1>Project "C:\Users\49\Desktop\prog project mars\MarsExploration\Main\Main.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\koleya\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /sdl /Od /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt Events\CancelEvent.cpp Events\FormulationEvent.cpp Events\PromoteEvent.cpp MarsStation\MarsStation.cpp Missions\PolarMission.cpp
+         FormulationEvent.cpp
+         Generating Code...
+         Compiling...
+         PolarMission.cpp
+         Generating Code...
+         Skipping... (no relevant changes detected)
+         MarsStation.cpp
+         PromoteEvent.cpp
+         CancelEvent.cpp
+       Link:
+         C:\koleya\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\49\Desktop\prog project mars\MarsExploration\x64\Debug\Main.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\49\Desktop\prog project mars\MarsExploration\x64\Debug\Main.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\49\Desktop\prog project mars\MarsExploration\x64\Debug\Main.lib" /MACHINE:X64 x64\Debug\CancelEvent.obj
+         x64\Debug\Event.obj
+         x64\Debug\FormulationEvent.obj
+         x64\Debug\PromoteEvent.obj
+         x64\Debug\MarsStation.obj
+         x64\Debug\EmergencyMission.obj
+         x64\Debug\Mission.obj
+         x64\Debug\MountainousMission.obj
+         x64\Debug\PolarMission.obj
+         x64\Debug\EmergencyRover.obj
+         x64\Debug\MountainousRover.obj
+         x64\Debug\PolarRover.obj
+         x64\Debug\Rover.obj
+         x64\Debug\Source.obj
+         x64\Debug\UI.obj
+         Main.vcxproj -> C:\Users\49\Desktop\prog project mars\MarsExploration\x64\Debug\Main.exe
+     1>Done Building Project "C:\Users\49\Desktop\prog project mars\MarsExploration\Main\Main.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:07.84

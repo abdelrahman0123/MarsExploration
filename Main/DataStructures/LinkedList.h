@@ -1,97 +1,112 @@
 #ifndef _LINKEDLIST
 #define _LINKEDLIST
 
+#include "ListADT.h"
 #include "Node.h"
 #include <iostream>
 using namespace std;
 
 template <typename T>
-class LinkedList
+class LinkedList : public ListADT<T>
 {
 private:
 	Node<T>* Head;	//Pointer to the head of the list
+	int itemCount;
+	Node<T>* getNodeAt(int position) const
+	{
+		if ((position >= 1) && (position <= itemCount))
+		{
+			Node<T>* curPtr = Head;
+			for (int skip = 1; skip < position; skip++)
+				curPtr = curPtr->getNext();
+			return curPtr;
+		}
+		else
+			return NULL;
+	}
 public:
-	LinkedList()
+	LinkedList() : itemCount(0)
 	{
 		Head = nullptr;
 	}
 
-	LinkedList(const LinkedList& L)
+	T getEntry(int position) const
 	{
-		Node<T>* ptr = L.Head;
-		Head = NULL;
-		while (ptr)
+		bool ableToGet = (position >= 1) && (position <= itemCount);
+		if (ableToGet)
 		{
-			InsertEnd(ptr->getItem());
-			ptr = ptr->getNext();
+			Node<T>* nodePtr = getNodeAt(position);
+			return nodePtr->getItem();
 		}
 	}
-	//List is being desturcted ==> delete all items in the list
+
+	bool isEmpty() const
+	{
+		if (itemCount == 0)
+			return true;
+		return false;
+	}
+
+	bool insert(int newPosition, const T& newEntry)
+	{
+		bool ableToInsert = (newPosition >= 1) && (newPosition <= itemCount + 1);
+		if (ableToInsert)
+		{
+			Node<T>* newNodePtr = new Node<T>(newEntry);
+			if (newPosition == 1)
+			{
+				newNodePtr->setNext(Head);
+				Head = newNodePtr;
+			}
+			else
+			{
+				Node<T>* prevPtr = getNodeAt(newPosition - 1);
+				newNodePtr->setNext(prevPtr->getNext());
+				prevPtr->setNext(newNodePtr);
+			}
+			itemCount++;
+		}
+		return ableToInsert;
+	}
+
+	bool remove(int position)
+	{
+		bool ableToRemove = (position >= 1) && (position <= itemCount);
+		if (ableToRemove)
+		{
+			Node<T>* curPtr = nullptr;
+			if (position == 1)
+			{
+				curPtr = Head;
+				Head = Head->getNext();
+			}
+			else
+			{
+				Node<T>* prevPtr = getNodeAt(position - 1);
+				curPtr = prevPtr->getNext();
+				prevPtr->setNext(curPtr->getNext());
+			}
+			curPtr->setNext(nullptr);
+			delete curPtr;
+			curPtr = nullptr;
+			itemCount--;
+		}
+		return ableToRemove;
+	}
+
+	int getLength() const
+	{
+		return itemCount;
+	}
+	void clear()
+	{
+		while (!isEmpty())
+			remove(1);
+	}
+
 	~LinkedList()
 	{
-		DeleteAll();
-	}
-	////////////////////////////////////////////////////////////////////////
-	/*
-	* Function: PrintList.
-	* prints the values of all nodes in a linked list.
-	*/
-	void PrintList()	const
-	{
-		cout << "\nprinting list contents:\n\n";
-		Node<T>* p = Head;
-
-		while (p)
-		{
-			cout << "[ " << p->getItem() << " ]";
-			cout << "--->";
-			p = p->getNext();
-		}
-		cout << "NULL\n";
-	}
-	////////////////////////////////////////////////////////////////////////
-	/*
-	* Function: InsertBeg.
-	* Creates a new node and adds it to the beginning of a linked list.
-	*
-	* Parameters:
-	*	- data : The value to be stored in the new node.
-	*/
-	void InsertBeg(const T& data)
-	{
-		Node<T>* R = new Node<T>(data);
-		R->setNext(Head);
-		Head = R;
-	}
-
-	// InsertEnd
-	void InsertEnd(const T& data)
-	{
-		Node<T>* R = new Node<T>(data);
-		if (!Head)
-		{
-			Head = R;
-			return;
-		}
-		Node<T>* p = Head;
-		while (p->getNext())
-			p = p->getNext();
-		p->setNext(R);
-	}
-	////////////////////////////////////////////////////////////////////////
-	/*
-	* Function: DeleteAll.
-	* Deletes all nodes of the list.
-	*/
-	void DeleteAll()
-	{
-		Node<T>* P = Head;
-		while (Head)
-		{
-			P = Head->getNext();
-			delete Head;
-			Head = P;
-		}
+		clear();
 	}
 };
 #endif

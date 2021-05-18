@@ -5,7 +5,7 @@ enum status { Waiting, Inexecution, completed };
 class Mission
 {
 private:
-	int ID, TLOC, MDUR, SIG, FD, WD, ED, CD;
+	int ID, TLOC, MDUR, SIG, FD, WD, ED, CD,Eperiod;
 	// id  location, duration,  significance, formulation day,waiting days,execution days,completion days
 	status MissionStatus;
 public:

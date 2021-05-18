@@ -15,7 +15,7 @@ class Rover
 	int missionLeft;//The number of missions a rover has ACTUALLY finished (CHANGES throughout the simulation)
 	bool maintenanceStatus;//If true, the rover is held in maintenance.
 	char roverType;
-
+	int LastCheckupDay;
 public:
 
 	Rover(); //Default constructor.
@@ -38,6 +38,8 @@ public:
 	
 	void setRoverType(char t);
 
+	void setLastCheckupDay(int day);
+
 	//GETTERS
 	int getcheckupDuration();
 	
@@ -57,6 +59,8 @@ public:
 
 	char getRoverType();
 	
+	int getLastCheckupDay();
+
 	void operator =(const Rover& r);//Overloaded = operator
 
 	virtual ~Rover();
