@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#include"MarsStation/MarsStation.h"
+#include "MarsStation/MarsStation.h"
 
 int main()
 {
@@ -8,5 +8,4 @@ int main()
 	MStation.ReadInput();
 	MStation.Simulate();
 	//MStation->GenerateOutputFile();
-	return 0;
 }

@@ -63,7 +63,7 @@ public:
 
 	bool CheckWaitingMissions();
 
-	bool ExecuteEvents();
+	bool ExecuteEvent();
 
 	// Assignment
 	bool AssignEmergencyMission();

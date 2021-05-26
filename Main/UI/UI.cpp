@@ -195,6 +195,18 @@ int UI::getMountainousRoversNum() {
 	return mountainousRoversNum;
 }
 
+void UI::print()
+{
+}
+
+void UI::printWaintingMissions()
+{
+}
+
+void UI::printInExecutionMissions()
+{
+}
+
 void UI::setPolarList(int* pList) {
 	for (int i = 0; i < polarRoversNum; i++) {
 		polarList[i] = pList[i];
@@ -292,4 +304,8 @@ void UI::printInCheckupRovers() {
 	}
 
 	cout << "\n-------------------------------------------------------------------------\n";
+}
+
+void UI::printCompletedMissions()
+{
 }

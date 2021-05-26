@@ -14,7 +14,7 @@ void MarsStation::Simulate()
 	while (!Events.isEmpty() || !InExecutionMissions.isEmpty() || !CheckWaitingMissions())
 	{
 		UpdateMissions();
-		ExecuteEvents();
+		ExecuteEvent();
 		MoveRoverFromBusyToAvailable();
 		MoveRoverFromCheckupToAvailable();
 		AssignEmergencyMission();
@@ -343,14 +343,19 @@ bool MarsStation::CheckWaitingMissions()
 	return false;
 }
 
-bool MarsStation::ExecuteEvents()
+bool MarsStation::ExecuteEvent()
 {
 	Event* E;
-	while (!Events.isEmpty())
+	E = RemoveFromEvents();
+	if (E)
 	{
-		E = RemoveFromEvents();
-		E->Execute();
+		if (E->getEventDay() == currentDay)
+		{
+			E->Execute();
+			return true;
+		}
 	}
+		return false;
 }
 
 bool MarsStation::AssignEmergencyMission()
