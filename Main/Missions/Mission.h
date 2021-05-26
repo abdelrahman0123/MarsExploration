@@ -13,7 +13,7 @@ public:
 	Mission();
 	Mission(int a, int b, int c, int d, int e);
 	//destuctor
-	virtual ~Mission();
+	~Mission();
 	
 	//getters
 	int GetId();

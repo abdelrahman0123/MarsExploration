@@ -170,27 +170,23 @@ void MarsStation::HandleMission()
 void MarsStation::AddToEmergencyMissions(EmergencyMission* EM, int pri)
 {
 	EmergencyMissions.enqueue(EM, pri);
-	interact.addWaitingMissionsEmergency(EM->GetId());
 }
 
 void MarsStation::AddToMountainousMissions(MountainousMission* MM)
 {
 	MountainousMissions.insert(++MountMissionsCount, MM);
-	interact.addWaitingMissionsMountainous(MM->GetId());
 }
 
 void MarsStation::AddToPolarMissions(PolarMission* PM)
 {
 	
 	PolarMissions.enqueue(PM);
-	interact.addWaitingMissionsPolar(PM->GetId());
 }
 
 void MarsStation::AddToEmergencyRovers(Rover* ER, float speed)
 {
 	emergencyRoversNum++;
 	EmergencyRovers.enqueue(ER, speed);
-	interact.addAvEmergency(ER->getRoverID());
 	ER->setAvailability(1);
 }
 
@@ -198,7 +194,6 @@ void MarsStation::AddToMountainousRovers(Rover* MR, float speed)
 {
 	mountainousRoversNum++;
 	MountainousRovers.enqueue(MR, speed);
-	interact.addAvMountainous(MR->getRoverID());
 	MR->setAvailability(1);
 }
 
@@ -206,33 +201,19 @@ void MarsStation::AddToPolarRovers(Rover* PR, float speed)
 {
 	polarRoversNum++;
 	PolarRovers.enqueue(PR, speed);
-	interact.addAvPolar(PR->getRoverID());
 	PR->setAvailability(1);
 }
 
 void MarsStation::AddToInExecutionMissions(Mission* M, int n)
 {
 	InExecutionMissions.enqueue(M, n);
-	/*EmergencyMission* temp = dynamic_cast<EmergencyMission*>(M);
-	if (temp) {
-		interact.addInExecutionEmergency(temp->GetId());
-	}
-	PolarMission* x = dynamic_cast<PolarMission*>(M);
-	if (x) {
-		interact.addInExecutionPolar(x->GetId());
-	}
-	MountainousMission* y = dynamic_cast<MountainousMission*>(M);
-	if (y) {
-		interact.addInExecutionMountainous(y->GetId());
-	}
-	*/
+
 }
 
 void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 {
 	InExecutionRovers.enqueue(R, n);
 	R->setAvailability(0);
-	
 }
 
 void MarsStation::AddToRoversCheckup(Rover* R, int n)
@@ -353,12 +334,8 @@ bool MarsStation::AssignEmergencyMission()
 				return false;
 	EM = RemoveFromEmergencyMissions();
 	AddToInExecutionMissions(EM, EM->GetExecutionDays());
-	/****/
-	interact.addInExecutionEmergency(EM->GetId());
 	EM->UpdateToExecution();
 	AssignRoverToMission(R, EM);
-	/****/
-	interact.addInExecutionEmergency(R->getRoverID());
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
 }
@@ -375,12 +352,8 @@ bool MarsStation::AssignMountainousMission()
 			return false;
 	MM = RemoveFromMountainousMissions();
 	AddToInExecutionMissions(MM, MM->GetExecutionDays());
-	/****/
-	interact.addInExecutionMountainous(MM->GetId());
 	MM->UpdateToExecution();
 	AssignRoverToMission(R, MM);
-	/****/
-	interact.addInExecutionMountainous(R->getRoverID());
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
 }
@@ -396,12 +369,8 @@ bool MarsStation::AssignPolarMission()
 		return false;
 	PM = RemoveFromPolarMissions();
 	AddToInExecutionMissions(PM, PM->GetExecutionDays());
-	/*****/
-	interact.addInExecutionPolar(PM->GetId());
 	PM->UpdateToExecution();
 	AssignRoverToMission(R, PM);
-	/*****/
-	interact.addInExecutionPolar(R->getRoverID());
 	MoveRoverFromAvailabeToBusy(R);
 	return true;
 }
