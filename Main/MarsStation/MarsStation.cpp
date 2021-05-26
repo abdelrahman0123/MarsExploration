@@ -2,84 +2,80 @@
 
 MarsStation::MarsStation()
 {
-	polarRoversNum = 0;
-	emergencyRoversNum = 0;
-	mountainousRoversNum = 0;
-	checkupRoversNum = 0;
-	inExecutionRoversNum = 0;
+	
 }
 
-//void MarsStation::ReadInput()
-//{
-//	////////// Reading Rovers Data //////////
-//	interact.readRovers();
-//	Queue<int>* er = interact.getEmRovers();
-//	Queue<int>* pr = interact.getPolarRovers();
-//	Queue<int>* mr = interact.getMountRovers();
-//
-//	int speed;
-//	EmergencyRover* tempEmergency;
-//	while (!er->isEmpty())
-//	{
-//		tempEmergency = new EmergencyRover();	//**SARAH**//Edit the non-default constructor /// Make the speed first
-//		er->dequeue(speed);
-//		AddToEmergencyRovers(tempEmergency, speed);
-//	}
-//
-//	PolarRover* tempPolar;
-//	while (!pr->isEmpty())
-//	{
-//		tempPolar = new PolarRover();
-//		pr->dequeue(speed);
-//		AddToPolarRovers(tempPolar, speed);
-//	}
-//
-//	MountainousRover* tempMount;
-//	while (!mr->isEmpty())
-//	{
-//		tempMount = new MountainousRover();
-//		mr->dequeue(speed);
-//		AddToMountainousRovers(tempMount, speed);
-//	}
-//
-//	// Setting the auto promotion limit
-//	int AutoP = interact.getAutoP();
-//
-//	//Reading the events Data
-//	int n = interact.getNumofEvents();
-//	Queue<int>* eventNumbers;
-//	int ED, ID, TLOC, MissionDur, SIG;
-//	for (int i = 0; i < n; i++)
-//	{
-//		eventNumbers = interact.getEvent();
-//		eventNumbers->dequeue(ED);
-//		eventNumbers->dequeue(ID);
-//		if (!eventNumbers->isEmpty())
-//		{
-//			eventNumbers->dequeue(TLOC);
-//			eventNumbers->dequeue(MissionDur);
-//			eventNumbers->dequeue(SIG);
-//
-//			Event* evptr = new FormulationEvent(interact.getMT(), ED, ID, TLOC, MissionDur, SIG);
-//			AddToEvents(evptr);
-//		}
-//		else
-//		{
-//			EventType ET = interact.getET();
-//			if (ET == Cancel)
-//			{
-//				Event* evptr = new CancelEvent(ED, ID);
-//				AddToEvents(evptr);
-//			}
-//			else
-//			{
-//				Event* evptr = new PromoteEvent(ED, ID);
-//				AddToEvents(evptr);
-//			}
-//		}
-//		
-//	}
-//}
+void MarsStation::ReadInput()
+{
+	////////// Reading Rovers Data //////////
+	interact.readRovers();
+	Queue<int>* er = interact.getEmRovers();
+	Queue<int>* pr = interact.getPolarRovers();
+	Queue<int>* mr = interact.getMountRovers();
+
+	int speed;
+	EmergencyRover* tempEmergency;
+	while (!er->isEmpty())
+	{
+		tempEmergency = new EmergencyRover();	//**SARAH**//Edit the non-default constructor /// Make the speed first
+		er->dequeue(speed);
+		AddToEmergencyRovers(tempEmergency, speed);
+	}
+
+	PolarRover* tempPolar;
+	while (!pr->isEmpty())
+	{
+		tempPolar = new PolarRover();
+		pr->dequeue(speed);
+		AddToPolarRovers(tempPolar, speed);
+	}
+
+	MountainousRover* tempMount;
+	while (!mr->isEmpty())
+	{
+		tempMount = new MountainousRover();
+		mr->dequeue(speed);
+		AddToMountainousRovers(tempMount, speed);
+	}
+
+	// Setting the auto promotion limit
+	int AutoP = interact.getAutoP();
+
+	//Reading the events Data
+	int n = interact.getNumofEvents();
+	Queue<int>* eventNumbers;
+	int ED, ID, TLOC, MissionDur, SIG;
+	for (int i = 0; i < n; i++)
+	{
+		eventNumbers = interact.getEvent();
+		eventNumbers->dequeue(ED);
+		eventNumbers->dequeue(ID);
+		if (!eventNumbers->isEmpty())
+		{
+			eventNumbers->dequeue(TLOC);
+			eventNumbers->dequeue(MissionDur);
+			eventNumbers->dequeue(SIG);
+
+			Event* evptr = new FormulationEvent(interact.getMT(), ED, ID, TLOC, MissionDur, SIG);
+			AddToEvents(evptr);
+		}
+		else
+		{
+			EventType ET = interact.getET();
+			if (ET == Cancel)
+			{
+				Event* evptr = new CancelEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+			else
+			{
+				Event* evptr = new PromoteEvent(ED, ID);
+				AddToEvents(evptr);
+			}
+		}
+		
+	}
+}
 
 void MarsStation::IncrementCurrentDay() {
 	currentDay++;
@@ -179,27 +175,23 @@ void MarsStation::AddToMountainousMissions(MountainousMission* MM)
 
 void MarsStation::AddToPolarMissions(PolarMission* PM)
 {
-	
 	PolarMissions.enqueue(PM);
 }
 
 void MarsStation::AddToEmergencyRovers(Rover* ER, float speed)
 {
-	emergencyRoversNum++;
 	EmergencyRovers.enqueue(ER, speed);
 	ER->setAvailability(1);
 }
 
 void MarsStation::AddToMountainousRovers(Rover* MR, float speed)
 {
-	mountainousRoversNum++;
 	MountainousRovers.enqueue(MR, speed);
 	MR->setAvailability(1);
 }
 
 void MarsStation::AddToPolarRovers(Rover* PR, float speed)
 {
-	polarRoversNum++;
 	PolarRovers.enqueue(PR, speed);
 	PR->setAvailability(1);
 }
@@ -221,7 +213,6 @@ void MarsStation::AddToRoversCheckup(Rover* R, int n)
 	RoversCheckup.enqueue(R, n);
 	R->setAvailability(0);
 	R->setMaintenanceStatus(1);
-	checkupRoversNum++;
 }
 
 void MarsStation::AddToCompletedMissions(Mission* M)
@@ -268,7 +259,6 @@ Rover* MarsStation::RemoveFromEmergencyRovers()
 	Rover* ER = NULL;
 	EmergencyRovers.dequeue(ER);
 	ER->setAvailability(0);
-	emergencyRoversNum--;
 	return ER;
 }
 
@@ -277,7 +267,6 @@ Rover* MarsStation::RemoveFromMountainousRovers()
 	Rover* MR = NULL;
 	MountainousRovers.dequeue(MR);
 	MR->setAvailability(0);
-	mountainousRoversNum--;
 	return MR;
 }
 
@@ -286,7 +275,6 @@ Rover* MarsStation::RemoveFromPolarRovers()
 	Rover* PR = NULL;
 	PolarRovers.dequeue(PR);
 	PR->setAvailability(0);
-	polarRoversNum--;
 	return PR;
 }
 
@@ -310,7 +298,6 @@ Rover* MarsStation::RemoveFromRoversCheckup()
 	RoversCheckup.dequeue(R);
 	R->setAvailability(1);
 	R->setMaintenanceStatus(0);
-	checkupRoversNum--;
 	return R;
 }
 

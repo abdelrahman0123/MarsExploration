@@ -105,14 +105,6 @@ void Rover::operator =(const Rover& r) {
 	speed = r.speed;
 }
 
-void Rover::setRoverID(int id) {
-	ID = id;
-}
-
-int Rover::getRoverID() {
-	return ID;
-}
-
 Rover::~Rover() {
 
 }

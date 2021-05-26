@@ -18,17 +18,16 @@ class MarsStation
 	PriQ<Rover*> PolarRovers;
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> RoversCheckup;
-	
+
 	UI interact;
 	int currentDay = 1;
 	int MountMissionsCount = 0;
 	int AutoPromotionLimit;
-	int checkupRoversNum,inExecutionRoversNum,polarRoversNum, emergencyRoversNum, mountainousRoversNum; //initialized in constructor
 public:
 	// Default Constructor
 	MarsStation();
 	
-	//void ReadInput();
+	void ReadInput();
 
 	void IncrementCurrentDay();
 	int getCurrentDay();
