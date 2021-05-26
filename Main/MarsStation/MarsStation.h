@@ -19,14 +19,18 @@ class MarsStation
 	PriQ<Rover*> InExecutionRovers;
 	PriQ<Rover*> RoversCheckup;
 
+	UI* UserInterface;
 	UI interact;
 	int currentDay = 1;
 	int MountMissionsCount = 0;
 	int AutoPromotionLimit;
+	int checkupRoversNum, inExecutionRoversNum, polarRoversNum, emergencyRoversNum, mountainousRoversNum; //initialized in constructor
 public:
 	// Default Constructor
 	MarsStation();
 	
+	void Simulate();
+
 	void ReadInput();
 
 	void IncrementCurrentDay();
@@ -57,6 +61,10 @@ public:
 	Rover* RemoveFromRoversCheckup();
 	Mission* RemoveFromCompletedMissions();
 
+	bool CheckWaitingMissions();
+
+	bool ExecuteEvents();
+
 	// Assignment
 	bool AssignEmergencyMission();
 	bool AssignMountainousMission();
@@ -80,10 +88,10 @@ public:
 
 	void UpdateMissions();
 	void HandleMission();
-
+	// Move Rovers
 	void MoveRoverFromAvailabeToBusy(Rover*);
 	void MoveRoverFromBusyToAvailable();
-	void MoveRoverFromAvailableToCheckup(Rover*);
+	void MoveRoverFromBusyToCheckup(Rover*);
 	void MoveRoverFromCheckupToAvailable();
 	// Destructor
 	~MarsStation();

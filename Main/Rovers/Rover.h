@@ -16,6 +16,7 @@ class Rover
 	bool maintenanceStatus;//If true, the rover is held in maintenance.
 	char roverType;
 	int LastCheckupDay;
+	int ID; //TODO --> SETTERS AND GETTERS
 public:
 
 	Rover(); //Default constructor.
@@ -40,6 +41,8 @@ public:
 
 	void setLastCheckupDay(int day);
 
+	void setRoverID(int id);
+
 	//GETTERS
 	int getcheckupDuration();
 	
@@ -60,6 +63,8 @@ public:
 	char getRoverType();
 	
 	int getLastCheckupDay();
+
+	int getRoverID();
 
 	void operator =(const Rover& r);//Overloaded = operator
 
