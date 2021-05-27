@@ -41,6 +41,7 @@ public:
 	//Event data getter
 	//Queue<int>* getEventData();
 	*/
+	/*
 	int avPolarRoversnum =0, avEmergencyRoversnum  = 0, avMountainounsRoversnum  = 0,
 		checkupPolarRoversnum  = 0, checkupEmergencyRoversnum =0, checkupMountainousRoversnum =0,
 		waitingPolarMissionsnum =0, waitingEmergemcyMissionsnum =0, waitingMountainousMissionsnum =0,
@@ -75,7 +76,7 @@ public:
 	void printAvailabeRovers();
 	void printInCheckupRovers();
 	void printCompletedMissions();*/
-	void addAvPolar(int n);
+	/*void addAvPolar(int n);
 	void addAvEmergency(int n);
 	void addAvMountainous(int n);
 	void addCheckupPolar(int n);
@@ -106,6 +107,6 @@ public:
 	void removeCompletedEmergencyMisisons(  );
 	void removeCompletedMountainousMissions(  );
 
-
+	*/
 };
 
