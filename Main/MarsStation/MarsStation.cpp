@@ -5,8 +5,8 @@ MarsStation::MarsStation()
 	
 }
 
-void MarsStation::ReadInput()
-{
+//void MarsStation::ReadInput()
+/*{
 	////////// Reading Rovers Data //////////
 	interact.readRovers();
 	Queue<int>* er = interact.getEmRovers();
@@ -17,7 +17,7 @@ void MarsStation::ReadInput()
 	EmergencyRover* tempEmergency;
 	while (!er->isEmpty())
 	{
-		tempEmergency = new EmergencyRover();	//**SARAH**//Edit the non-default constructor /// Make the speed first
+		tempEmergency = new EmergencyRover();	Edit the non-default constructor /// Make the speed first
 		er->dequeue(speed);
 		AddToEmergencyRovers(tempEmergency, speed);
 	}
@@ -75,7 +75,7 @@ void MarsStation::ReadInput()
 		}
 		
 	}
-}
+}*/
 
 void MarsStation::IncrementCurrentDay() {
 	currentDay++;
@@ -536,7 +536,7 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 }
 
 void MarsStation::MoveRoverFromAvailableToCheckup(Rover* r) {
-	r->setLastCheckupDay(currentDay);
+	r->setLastCheckupDay(currentDay+r->getcheckupDuration());
 	AddToRoversCheckup(r, r->getLastCheckupDay());
 }
 

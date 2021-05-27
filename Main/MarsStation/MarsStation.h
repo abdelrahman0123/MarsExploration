@@ -27,7 +27,7 @@ public:
 	// Default Constructor
 	MarsStation();
 	
-	void ReadInput();
+	//void ReadInput();
 
 	void IncrementCurrentDay();
 	int getCurrentDay();
