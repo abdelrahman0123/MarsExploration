@@ -14,7 +14,7 @@ EmergencyMission::~EmergencyMission(){}//destructor
 
 void EmergencyMission::SetPriority()//find the priority based on 1-FD 2-MTLOC 3-DUR 4-SIG
 {
-	//priority = 10 * SIG + FD + DUR + 0.01*MTLOC;maslan ya3ny
+	priority = 10 * GetSignificance() - 5 * GetFormulationDay() - GetMissDuration() + 0.01 * GetTargetLocation(); //maslan ya3ny
 }
 
 float EmergencyMission::GetPriority()

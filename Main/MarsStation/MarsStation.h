@@ -1,8 +1,15 @@
 #pragma once
 #include "..\All_Files.h"
-
+#include <fstream>
 class MarsStation
 {
+	//Input and output files
+	ifstream ipFile;
+	ofstream opFile;
+	int AutoPromotionLimit;						//Auto Promotion limit to be set for the whole program
+	int ED, ID, TLOC, MissionDur, SIG;			//Numbers associated with the events in the input file
+	MissionType Mtype;
+
 	// Lists
 	Queue<Event*> Events;
 
@@ -23,15 +30,24 @@ class MarsStation
 	UI interact;
 	int currentDay = 1;
 	int MountMissionsCount = 0;
-	int AutoPromotionLimit;
+
 	int checkupRoversNum, inExecutionRoversNum, polarRoversNum, emergencyRoversNum, mountainousRoversNum; //initialized in constructor
+	int roversCount{ 0 }, mountRCount{ 0 }, polarRCount{ 0 }, emrgncyRCount{ 0 }, checkUpCount{ 0 };
+	int mountMCount{ 0 }, polarMCount{ 0 }, emrgncyMCount{ 0 }, completedMcount{ 0 };
 public:
 	// Default Constructor
 	MarsStation();
 	
 	void Simulate();
 
-	void ReadInput();
+	//void ReadInput();
+
+	//Input file associated functions
+	void ReadInput();				//Main input function
+	void readRovers();				//Reads the rovers data, create and add them to their waiting list
+	void createEventsList();		//Reads the events data, create and add them to their list
+	void setMtype(char M);
+	MissionType getMtype();
 
 	void IncrementCurrentDay();
 	int getCurrentDay();
@@ -93,6 +109,12 @@ public:
 	void MoveRoverFromBusyToAvailable();
 	void MoveRoverFromBusyToCheckup(Rover*);
 	void MoveRoverFromCheckupToAvailable();
+
+	//Output file associated functions
+	void PrintOutput();
+	char getMissionType(Mission* base);
+	void getStatistics();
+	void printRoversData();
 	// Destructor
 	~MarsStation();
 };

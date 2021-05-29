@@ -43,6 +43,16 @@ int Mission::GetAvgExecutiondays(int num)//get the avreage of the execution peri
 {
 	return ED / num;
 }
+
+bool Mission::AutoPromoted()
+{
+	return isAutoP;
+}
+Rover* Mission::getAssociated()
+{
+	return associated;
+}
+
 //setters
 void Mission::SetId(int i)//set the id
 { ID = (i> 0) ? i : 0; }
@@ -88,4 +98,14 @@ void Mission::UpdateToExecution()
 void Mission::UpdateToCompleted()
 {
 	MissionStatus = completed;
+}
+
+void Mission::setAutoP()
+{
+	isAutoP = true;
+}
+
+void Mission::setAssociated(Rover* rvr)
+{
+	associated = rvr;
 }

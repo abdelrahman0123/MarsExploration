@@ -4,19 +4,19 @@ Rover::Rover() {
 	
 	checkupDuration = 0;
 	speed = 0;
-	assignedMission = nullptr;
 	available =1;
 	missionsBeforeCheckup = 0;
 	missionLeft = 0;
 	maintenanceStatus = 0;
 	roverType = 'U';
+	MissionExecutionDays = 0;
+	MissionCompletionDay = 0;
 }
 
-Rover::Rover(int c, float s, Mission* m, bool av,int x,char t) {
+Rover::Rover(int c, float s, bool av,int x,char t): MissionExecutionDays(0), MissionCompletionDay(0) {
 
 	checkupDuration = c;
 	speed = s;
-	assignedMission = m;
 	available = av;
 	missionsBeforeCheckup = x;
 	missionLeft = x;
@@ -30,10 +30,6 @@ void Rover::setcheckupDuration(int c) {
 
 void Rover::setRoverSpeed(float s) {
 	speed = s;
-}
-
-void Rover::setAssignedMission(Mission* m) {
-	assignedMission = m;
 }
 
 void Rover::setAvailability(bool av) {
@@ -63,16 +59,22 @@ void Rover::setRoverID(int id)
 	ID = id;
 }
 
+void Rover::setExecutionDays(int d)
+{
+	MissionExecutionDays = d;
+}
+
+void Rover::setCompletionDay(int d)
+{
+	MissionCompletionDay = d;
+}
+
 int Rover::getcheckupDuration() {
 	return checkupDuration;
 }
 
 float Rover::getRoverSpeed() {
 	return speed;
-}
-
-Mission* Rover::getAssignedMission() {
-	return assignedMission;
 }
 
 bool Rover::inMaintenance() {
@@ -107,6 +109,16 @@ int Rover::getLastCheckupDay()
 int Rover::getRoverID()
 {
 	return ID;
+}
+
+int Rover::getExecutionDays()
+{
+	return MissionExecutionDays;
+}
+
+int Rover::getCompletionDay()
+{
+	return MissionCompletionDay;
 }
 
 void Rover::operator =(const Rover& r) {

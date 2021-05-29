@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 using namespace std;
-#include"..\Missions\Mission.h"
 
 //TO DO
 //7AGA LEHA DA3WA BEL CURRENT DAY WEL CHECKUP DAYS W KEDA
@@ -9,7 +8,6 @@ class Rover
 {
 	int checkupDuration; //The number of days a rover spends in maintenance. 
 	float speed; //The speed of each rover. 
-	Mission* assignedMission; //A mission pointer to the mission assigned to the rover
 	bool available; //Checks whether the rover is available or not (not available if in maintenance or on a mission)
 	int missionsBeforeCheckup;//The number of missions a rover finishes before getting checked up (input from the txt file)
 	int missionLeft;//The number of missions a rover has ACTUALLY finished (CHANGES throughout the simulation)
@@ -17,19 +15,19 @@ class Rover
 	char roverType;
 	int LastCheckupDay;
 	int ID; //TODO --> SETTERS AND GETTERS
+	int MissionExecutionDays;
+	int MissionCompletionDay;
 public:
 
 	Rover(); //Default constructor.
 	         //Sets every data member to 0, and pointers to NULL;
 
-	Rover(int c, float s, Mission* m, bool av, int x,char t); //User defined constructor
+	Rover(int c, float s, bool av, int x,char t); //User defined constructor
 	 
 	//SETTERS
 	void setcheckupDuration(int c);
 	
 	void setRoverSpeed(float s);
-	
-	void setAssignedMission(Mission *);
 	
 	void setAvailability(bool av);
 	
@@ -43,12 +41,14 @@ public:
 
 	void setRoverID(int id);
 
+	void setExecutionDays(int d);
+
+	void setCompletionDay(int d);
+
 	//GETTERS
 	int getcheckupDuration();
 	
 	float getRoverSpeed();
-	
-	Mission* getAssignedMission();
 	
 	bool inMaintenance();
 
@@ -65,6 +65,10 @@ public:
 	int getLastCheckupDay();
 
 	int getRoverID();
+
+	int getExecutionDays();
+
+	int getCompletionDay();
 
 	void operator =(const Rover& r);//Overloaded = operator
 

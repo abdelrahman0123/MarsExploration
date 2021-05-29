@@ -64,6 +64,13 @@ public:
 	void printInCheckupRovers();
 	void printCompletedMissions();
 
+	/*void printCurrentDay(int day);
+	void printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<MountainousMission*> mount, Queue<PolarMission*> polar, int E, int M, int P);
+	void printInExecution(PriQ<Mission*> missions);
+	void printAvailableRovers(int availableRvrs, PriQ<Rover*> emrgncy, PriQ<Rover*> mount, PriQ<Rover*> polar);
+	void printInCheckup(int checkup, PriQ<Rover*> rovers);
+	void printCompletedMissions(int completedCount, Queue<Mission*> Completed);*/
+
 
 };
 
