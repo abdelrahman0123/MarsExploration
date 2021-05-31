@@ -69,6 +69,11 @@ void Rover::setCompletionDay(int d)
 	MissionCompletionDay = d;
 }
 
+void Rover::setMissionsLeft(int m)
+{
+	missionLeft = m;
+}
+
 int Rover::getcheckupDuration() {
 	return checkupDuration;
 }

@@ -45,6 +45,8 @@ public:
 
 	void setCompletionDay(int d);
 
+	void setMissionsLeft(int m);
+
 	//GETTERS
 	int getcheckupDuration();
 	

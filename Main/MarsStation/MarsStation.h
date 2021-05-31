@@ -29,9 +29,7 @@ class MarsStation
 	UI* UserInterface;
 	UI interact;
 	int currentDay = 1;
-	int MountMissionsCount = 0;
 
-	int checkupRoversNum, inExecutionRoversNum, polarRoversNum, emergencyRoversNum, mountainousRoversNum; //initialized in constructor
 	int roversCount{ 0 }, mountRCount{ 0 }, polarRCount{ 0 }, emrgncyRCount{ 0 }, checkUpCount{ 0 };
 	int mountMCount{ 0 }, polarMCount{ 0 }, emrgncyMCount{ 0 }, completedMcount{ 0 };
 public:
@@ -39,8 +37,6 @@ public:
 	MarsStation();
 	
 	void Simulate();
-
-	//void ReadInput();
 
 	//Input file associated functions
 	void ReadInput();				//Main input function
@@ -79,23 +75,19 @@ public:
 
 	bool CheckWaitingMissions();
 
-	bool ExecuteEvent();
+	void ExecuteEvent();
 
 	// Assignment
-	bool AssignEmergencyMission();
-	bool AssignMountainousMission();
-	bool AssignPolarMission();
+	void AssignEmergencyMission();
+	void AssignMountainousMission();
+	void AssignPolarMission();
 
 	bool CheckAvailableRover(Rover*& R, char Type);
 
 	void AssignRoverToMission(Rover* R, Mission* M);
 
-	// Mountainous Missions Count
-	int getMountMissionsCount();
-	void IncrementMountMissionsCount();
-	void DecrementMountMissionsCount();
-
 	int getAutoP();
+
 	// Cancel Mountainous Mission
 	void CancelMission(int ID);
 

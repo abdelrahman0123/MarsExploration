@@ -4,8 +4,9 @@ using namespace std;
 
 int main()
 {
-	MarsStation MStation;
-	MStation.ReadInput();
-	MStation.Simulate();
-	//MStation->GenerateOutputFile();
+	MarsStation* MStation = new MarsStation();
+	MStation->ReadInput();
+	MStation->Simulate();
+	MStation->PrintOutput();
+	delete MStation;
 }
