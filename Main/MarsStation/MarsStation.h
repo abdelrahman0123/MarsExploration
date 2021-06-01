@@ -1,6 +1,10 @@
 #pragma once
 #include "..\All_Files.h"
 #include <fstream>
+#include<chrono>
+#include <thread>
+using namespace std::this_thread; // sleep_for, sleep_until
+using namespace std::chrono; // nanoseconds, system_clock, seconds
 class MarsStation
 {
 	//Input and output files
@@ -107,7 +111,28 @@ public:
 	char getMissionType(Mission* base);
 	void getStatistics();
 	void printRoversData();
+
+	template<typename T>
+	void ExchangeQueues(Queue<T>& Q1, Queue<T>& Q2);
+	void ExchangeEMissions(PriQ<EmergencyMission*>& Q1, PriQ<EmergencyMission*>& Q2);
+	void ExchangeExecMissions(PriQ<Mission*>& Q1, PriQ<Mission*>& Q2);
+
+	void simulateInteractive();
+	void simulateStepByStep();
+	void simulateSilent();
+	void simulateG(int x);
+
 	// Destructor
 	~MarsStation();
 };
 
+template<typename T>
+inline void MarsStation::ExchangeQueues(Queue<T>& Q1, Queue<T>& Q2)
+{
+	T temp;
+	while (!Q1.isEmpty())
+	{
+		Q1.dequeue(temp);
+		Q2.enqueue(temp);
+	}
+}

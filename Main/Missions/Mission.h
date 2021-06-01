@@ -29,6 +29,7 @@ public:
 	int GetCompletionDay();
 	int GetAvgWaitingdays(int num);
 	int GetAvgExecutiondays(int num);
+	int GetExecutionPeriod();
 
 	bool AutoPromoted();
 	Rover* getAssociated();

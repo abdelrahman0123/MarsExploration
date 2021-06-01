@@ -44,6 +44,11 @@ int Mission::GetAvgExecutiondays(int num)//get the avreage of the execution peri
 	return ED / num;
 }
 
+int Mission::GetExecutionPeriod()
+{
+	return Eperiod;
+}
+
 bool Mission::AutoPromoted()
 {
 	return isAutoP;
@@ -73,7 +78,7 @@ void Mission::IncrementWaitingDays()//inrement the number of waiting days of the
 { WD++; }
 
 void Mission::DecrementInexecutionDays()
-{Eperiod--;}
+{ED--;}
 
 void Mission::SetExecutionDays(int speed)//set the num of execution days 
 {

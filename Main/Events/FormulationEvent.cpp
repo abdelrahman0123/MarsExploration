@@ -1,7 +1,7 @@
 #include "FormulationEvent.h"
 #include"..\MarsStation\MarsStation.h"
 
-FormulationEvent::FormulationEvent(MissionType Type, int day, int ID, int loc, int dur, int sig) : Event(day, ID), MType(Type)
+FormulationEvent::FormulationEvent(MarsStation* MS, MissionType Type, int day, int ID, int loc, int dur, int sig) : Event(day, ID, MS), MType(Type)
 {
 	TLOC = loc;
 	MDUR = dur;
