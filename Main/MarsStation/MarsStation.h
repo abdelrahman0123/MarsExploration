@@ -37,6 +37,10 @@ class MarsStation
 	int roversCount{ 0 }, mountRCount{ 0 }, polarRCount{ 0 }, emrgncyRCount{ 0 }, checkUpCount{ 0 };
 	int mountMCount{ 0 }, polarMCount{ 0 }, emrgncyMCount{ 0 }, completedMcount{ 0 };
 	int maxRoversCount{ 0 };
+	int inputFileRcount { 0 };
+	int inputFilePRcount{ 0 };
+	int inputFileERcount{ 0 };
+	int inputFileMRcount{ 0 };
 public:
 	// Default Constructor
 	MarsStation();

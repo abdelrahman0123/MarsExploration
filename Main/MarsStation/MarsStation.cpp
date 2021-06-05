@@ -113,7 +113,10 @@ void MarsStation::readRovers()
 		ipFile >> x >> y >> z;
 
 		mountRCount = x;		polarRCount = y;		emrgncyRCount = z;
-		roversCount = mountRCount + polarRCount + emrgncyRCount;
+		inputFileERcount = z; inputFileMRcount = x;
+		inputFilePRcount = y;
+		//roversCount = mountRCount + polarRCount + emrgncyRCount;
+		inputFileRcount = roversCount;
 		maxRoversCount = roversCount;
 		//Getting max no. of rovers
 		max = getmax(x, y, z);
@@ -303,9 +306,11 @@ void MarsStation::UpdateMissions()
 				b = MM->GetTargetLocation();
 				c = MM->GetMissDuration();
 				d = MM->GetSignificance();
+			//	e = currentDay;
 				e = MM->GetFormulationDay();
 				EmergencyMission* EM = new EmergencyMission(a, b, c, d, e);
 				AddToEmergencyMissions(EM, EM->GetPriority());
+				RemoveFromMountainousMissions(i);
 			}
 		}
 		i++;
@@ -339,7 +344,7 @@ void MarsStation::HandleMission()
 			
 			Temp->UpdateToCompleted();
 			AddToCompletedMissions(Temp);
-			
+			MoveRoverFromBusyToAvailable();
 			/////EL ROVER BETA3 SARA $$$$$$$$$$$$$
 		}
 		else break;//$$$
@@ -845,10 +850,10 @@ void MarsStation::getStatistics()
 		exeDays = exeDays + Finished->GetExecutionPeriod();		//Counting the total execution days
 
 		//Printing the mission details
-		opFile << Finished->GetCompletionDay() << "    ";
-		opFile << Finished->GetId() << "    ";
+		opFile << Finished->GetCompletionDay() << "      ";
+		opFile << Finished->GetId() << "     ";
 		opFile << Finished->GetFormulationDay() << "    ";
-		opFile << Finished->GetWaitingDays() << "    ";
+		opFile << Finished->GetWaitingDays() << "      ";
 		opFile << Finished->GetExecutionPeriod() << "\n";
 	}
 
@@ -864,56 +869,9 @@ void MarsStation::getStatistics()
 
 void MarsStation::printRoversData()
 {
-	/*
-	int roversCount{ 0 }, mountCount{ 0 }, polarCount{ 0 }, emrgncyCount{ 0 };
-	Rover* temp;
 
-	///////Checking for available rovers/////////
-	while (!EmergencyRovers.isEmpty())
-	{
-		EmergencyRovers.dequeue(temp);
-		roversCount++;
-		emrgncyCount++;
-	}
-
-	while (!PolarRovers.isEmpty())
-	{
-		PolarRovers.dequeue(temp);
-		roversCount++;
-		polarCount++;
-	}
-
-	while (!MountainousRovers.isEmpty())
-	{
-		MountainousRovers.dequeue(temp);
-		roversCount++;
-		mountCount++;
-	}
-
-	///////Checking for rovers in checkup
-	char r;
-	while (!RoversCheckup.isEmpty())
-	{
-		RoversCheckup.dequeue(temp);
-		roversCount++;
-		r = temp->getRoverType();
-
-		switch (r)
-		{
-		case 'E':
-			emrgncyCount++;
-			break;
-		case 'P':
-			polarCount++;
-			break;
-		case 'M':
-			mountCount++;
-			break;
-		}
-	}
-	*/
 	//Printing rovers data
-	opFile << "Rovers: " << roversCount << " [M: " << mountRCount << ", P: " << polarRCount << ", E: " << emrgncyRCount << "]\n";
+	opFile << "Rovers: " << inputFileRcount << " [M: " << inputFileMRcount << ", P: " << inputFilePRcount << ", E: " << inputFileERcount << "]\n";
 }
 
 char MarsStation::getMissionType(Mission* base)

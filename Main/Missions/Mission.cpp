@@ -80,10 +80,12 @@ void Mission::IncrementWaitingDays()//inrement the number of waiting days of the
 void Mission::DecrementInexecutionDays()
 {ED--;}
 
-void Mission::SetExecutionDays(int speed)//set the num of execution days 
+void Mission::SetExecutionDays(float speed)//set the num of execution days 
 {
-	int way =ceil( (TLOC / speed) / 25);
-	ED = 2 * way + MDUR;
+	float x=TLOC/speed;
+	float way =x / 25;
+	way = ceil(2*way);
+	ED =  way + MDUR;
 	Eperiod = ED;
 }
 void Mission::SetCompletionDay()//set the day the mission was completed
