@@ -30,6 +30,17 @@ public:
 		Head = nullptr;
 	}
 
+	LinkedList(const LinkedList<T>& L)
+	{
+		int i = 1;
+		T x;
+		while (x = L.getEntry(i))
+		{
+			insert(i, x);
+			i++;
+		}
+	}
+
 	T getEntry(int position) const
 	{
 		bool ableToGet = (position >= 1) && (position <= itemCount);
@@ -38,6 +49,7 @@ public:
 			Node<T>* nodePtr = getNodeAt(position);
 			return nodePtr->getItem();
 		}
+		return 0;
 	}
 
 	bool isEmpty() const
@@ -94,10 +106,6 @@ public:
 		return ableToRemove;
 	}
 
-	int getLength() const
-	{
-		return itemCount;
-	}
 	void clear()
 	{
 		while (!isEmpty())

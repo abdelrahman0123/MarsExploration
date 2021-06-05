@@ -13,8 +13,8 @@ Rover::Rover() {
 	MissionCompletionDay = 0;
 }
 
-Rover::Rover(int c, float s, bool av,int x,char t): MissionExecutionDays(0), MissionCompletionDay(0) {
-
+Rover::Rover(int id, int c, float s, bool av,int x,char t): MissionExecutionDays(0), MissionCompletionDay(0) {
+	ID = id;
 	checkupDuration = c;
 	speed = s;
 	available = av;
@@ -91,7 +91,7 @@ bool Rover::isAvailable() {
 }
 
 int Rover::getMissionsBeforeCheckUp() {
-	return missionLeft;
+	return missionsBeforeCheckup;
 }
 
 void Rover::DecrementMissionsLeft() {

@@ -7,8 +7,21 @@ UI::UI()
 char UI::selectMode()
 {
 	char c;
-	cout << "Enter i for INTERACTIVE MODE\n Or s for STEP-BY-STEP MODE\n or t for SILENT MODE:\n";
+	cout << "**************************************************" << endl;
+	cout << "*                                                *" << endl;
+	cout << "*          ~~~~~MARS EXPLORATION~~~~~            *" << endl;
+	cout << "*                                                *" << endl;
+	cout << "**************************************************" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 'i' for simulation in the Interactive Mode |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 's' for the Step-By-Step Mode              |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 't' for the Silent Mode                    |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "--> ";
 	cin >> c;
+	cout << "\n\n";
 	return c;
 
 }
@@ -16,56 +29,43 @@ char UI::selectMode()
 bool UI::interactiveMode()
 {
 	char c;
-	cout << "Press ENTER to start\n";
-	cin >> c;
-	if (c == 0x0A)
-		return true;
-	else
-		return 0;
-
-	/*while (cin >> c) {
-		if (c == 0x0A) {
-
-			  printCurrentDay(int day);
-			  printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<MountainousMission*> mount, Queue<PolarMission*> polar, int E, int M, int P);
-			  printInExecution(PriQ<Mission*> missions);
-			  printAvailableRovers(int availableRvrs, PriQ<Rover*> emrgncy, PriQ<Rover*> mount, PriQ<Rover*> polar);
-			  printInCheckup(int checkup, PriQ<Rover*> rovers);
-			  printCompletedMissions(int completedCount, Queue<Mission*> Completed);
-
-		}
-
-	}*/
-
-
-
+	cout << "~~Press ENTER to display the output of the next day.\n";
+	cin.sync();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	return true;
+	/*--Enter
+	cin.sync();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	*/
 }
 void UI::stepByStepMode() {
-
+	
 }
 
 void UI::silentMode()
 {
-	cout << " Silent Mode\n Simulation Starts...\n Simulation ends, Output file created\n";
+	cout << "Silent Mode\nSimulation Starts...\nSimulation ends, Output file created\n";
 }
 void UI::printCurrentDay(int day)
 {
 	cout << "Current Day: " << day << endl;
 }
 
-void UI::printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<MountainousMission*> mount, Queue<PolarMission*> polar, int E, int M, int P)
+void UI::printWaitingMissions(PriQ<EmergencyMission*>& emrgncy, LinkedList<MountainousMission*>& mount, Queue<PolarMission*>& polar, int E, int M, int P)
 {
 	cout << E + M + P << " Waiting Missions: ";
-
+	PriQ<EmergencyMission*> Etemp = emrgncy;
+	LinkedList<MountainousMission*> Mtemp = mount;
+	Queue<PolarMission*> Ptemp = polar;
 	if (E != 0)
 	{
 		cout << "[";
 		EmergencyMission* x;
-		while (!emrgncy.isEmpty())
+		while (!Etemp.isEmpty())
 		{
-			emrgncy.dequeue(x);
+			Etemp.dequeue(x);
 			cout << x->GetId();
-			if (!emrgncy.isEmpty())
+			if (!Etemp.isEmpty())
 				cout << ',';
 		}
 		cout << "] ";
@@ -75,11 +75,11 @@ void UI::printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<Mounta
 	{
 		cout << '(';
 		PolarMission* x;
-		while (!polar.isEmpty())
+		while (!Ptemp.isEmpty())
 		{
-			polar.dequeue(x);
+			Ptemp.dequeue(x);
 			cout << x->GetId();
-			if (!polar.isEmpty())
+			if (!Ptemp.isEmpty())
 				cout << ',';
 		}
 		cout << ") ";
@@ -89,7 +89,7 @@ void UI::printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<Mounta
 	{
 		if (i == 1)
 			cout << '{';
-		int x = mount.getEntry(i)->GetId();
+		int x = Mtemp.getEntry(i)->GetId();
 		cout << x;
 		if (i < M)
 			cout << ',';
@@ -100,16 +100,17 @@ void UI::printWaitingMissions(PriQ<EmergencyMission*> emrgncy, LinkedList<Mounta
 	cout << endl << "-------------------------------------------------------" << endl;
 }
 
-void UI::printInExecution(PriQ<Mission*> missions)
+void UI::printInExecution(PriQ<Mission*>& missions)
 {
+	PriQ<Mission*> ExecTemp = missions;
 	Queue<EmergencyMission*> Emrgncylist;		Queue<MountainousMission*> Mountlist;		Queue<PolarMission*> Polarlist;
 	EmergencyMission* Emrgncy;					MountainousMission* Mount;					PolarMission* Polar;
 	Mission* temp;
 	int count{ 0 };
 
-	while (!missions.isEmpty())
+	while (!ExecTemp.isEmpty())
 	{
-		missions.dequeue(temp);
+		ExecTemp.dequeue(temp);
 		Emrgncy = dynamic_cast<EmergencyMission*>(temp);
 		if (Emrgncy)
 		{
@@ -176,46 +177,48 @@ void UI::printInExecution(PriQ<Mission*> missions)
 	cout << endl << "-------------------------------------------------------" << endl;
 }
 
-void UI::printAvailableRovers(int num, PriQ<Rover*> emrgncy, PriQ<Rover*> mount, PriQ<Rover*> polar)
+void UI::printAvailableRovers(int num, PriQ<Rover*>& emrgncy, PriQ<Rover*>& mount, PriQ<Rover*>& polar)
 {
 	cout << num << " Available Rovers: ";
 
 	Rover* tmp;
-
-	if (!emrgncy.isEmpty())
+	PriQ<Rover*> Etemp = emrgncy;
+	PriQ<Rover*> Mtemp = mount;
+	PriQ<Rover*> Ptemp = polar;
+	if (!Etemp.isEmpty())
 	{
 		cout << '[';
-		while (!emrgncy.isEmpty())
+		while (!Etemp.isEmpty())
 		{
-			emrgncy.dequeue(tmp);
+			Etemp.dequeue(tmp);
 			cout << tmp->getRoverID();
-			if (!emrgncy.isEmpty())
+			if (!Etemp.isEmpty())
 				cout << ", ";
 		}
 		cout << "] ";
 	}
 
-	if (!polar.isEmpty())
+	if (!Ptemp.isEmpty())
 	{
 		cout << '(';
-		while (!polar.isEmpty())
+		while (!Ptemp.isEmpty())
 		{
-			polar.dequeue(tmp);
+			Ptemp.dequeue(tmp);
 			cout << tmp->getRoverID();
-			if (!polar.isEmpty())
+			if (!Ptemp.isEmpty())
 				cout << ", ";
 		}
 		cout << ") ";
 	}
 
-	if (!mount.isEmpty())
+	if (!Mtemp.isEmpty())
 	{
 		cout << '{';
-		while (!mount.isEmpty())
+		while (!Mtemp.isEmpty())
 		{
-			mount.dequeue(tmp);
+			Mtemp.dequeue(tmp);
 			cout << tmp->getRoverID();
-			if (!mount.isEmpty())
+			if (!Mtemp.isEmpty())
 				cout << ", ";
 		}
 		cout << "} ";
@@ -225,15 +228,16 @@ void UI::printAvailableRovers(int num, PriQ<Rover*> emrgncy, PriQ<Rover*> mount,
 
 }
 
-void UI::printInCheckup(int num, PriQ<Rover*> rovers)
+void UI::printInCheckup(int num, PriQ<Rover*>& rovers)
 {
 	cout << num << "  In-Checkup Rovers: ";
 
+	PriQ<Rover*> Check = rovers;
 	Queue<int> e, p, m;
 	Rover* tmp;
 	char c;
 
-	while (rovers.dequeue(tmp))
+	while (Check.dequeue(tmp))
 	{
 		c = tmp->getRoverType();
 		switch (c)
@@ -292,21 +296,22 @@ void UI::printInCheckup(int num, PriQ<Rover*> rovers)
 
 }
 
-void UI::printCompletedMissions(int num, Queue<Mission*> Completed)
+void UI::printCompletedMissions(int num, Queue<Mission*>& Completed)
 {
 	cout << num << "  Completed Missions: ";
 
+	Queue<Mission*> Comp = Completed;
 	Queue<EmergencyMission*> Emrgncylist;		Queue<MountainousMission*> Mountlist;		Queue<PolarMission*> Polarlist;
 	EmergencyMission* Emrgncy;					MountainousMission* Mount;					PolarMission* Polar;
 	Mission* temp;
 
-	while (!Completed.isEmpty())
+	while (!Comp.isEmpty())
 	{
-		Completed.dequeue(temp);
+		Comp.dequeue(temp);
 		Emrgncy = dynamic_cast<EmergencyMission*>(temp);
 		if (Emrgncy)
 		{
-			Completed.enqueue(Emrgncy);
+			Emrgncylist.enqueue(Emrgncy);
 			continue;
 		}
 
@@ -359,5 +364,10 @@ void UI::printCompletedMissions(int num, Queue<Mission*> Completed)
 		cout << "} ";
 	}
 
-	cout << endl << "-------------------------------------------------------" << endl;
+	cout << "\n\n************************************************************************************************************************\n\n";
+}
+
+void UI::printEnd()
+{
+	cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~||THE END||~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }

@@ -22,7 +22,7 @@ public:
 	Rover(); //Default constructor.
 	         //Sets every data member to 0, and pointers to NULL;
 
-	Rover(int c, float s, bool av, int x,char t); //User defined constructor
+	Rover(int id, int c, float s, bool av, int x,char t); //User defined constructor
 	 
 	//SETTERS
 	void setcheckupDuration(int c);

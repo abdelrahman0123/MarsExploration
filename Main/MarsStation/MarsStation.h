@@ -36,21 +36,30 @@ class MarsStation
 
 	int roversCount{ 0 }, mountRCount{ 0 }, polarRCount{ 0 }, emrgncyRCount{ 0 }, checkUpCount{ 0 };
 	int mountMCount{ 0 }, polarMCount{ 0 }, emrgncyMCount{ 0 }, completedMcount{ 0 };
+	int maxRoversCount{ 0 };
 public:
 	// Default Constructor
 	MarsStation();
 	
+	//Sim
 	void Simulate();
+	void simulateInteractive();
+	void simulateStepByStep();
+	void simulateSilent();
+	void simulateG(int x);
 
 	//Input file associated functions
-	void ReadInput();				//Main input function
+	void ReadInput();               //Main input function
+	int getmax(int x, int y, int z);
 	void readRovers();				//Reads the rovers data, create and add them to their waiting list
 	void createEventsList();		//Reads the events data, create and add them to their list
 	void setMtype(char M);
 	MissionType getMtype();
 
+	//CurrentDay
 	void IncrementCurrentDay();
 	int getCurrentDay();
+
 	// Add to Lists
 	void AddToEvents(Event* newEvent);
 	void AddToEmergencyMissions(EmergencyMission* EM, int pri);
@@ -77,6 +86,7 @@ public:
 	Rover* RemoveFromRoversCheckup();
 	Mission* RemoveFromCompletedMissions();
 
+	
 	bool CheckWaitingMissions();
 
 	void ExecuteEvent();
@@ -100,11 +110,15 @@ public:
 
 	void UpdateMissions();
 	void HandleMission();
+
 	// Move Rovers
 	void MoveRoverFromAvailabeToBusy(Rover*);
 	void MoveRoverFromBusyToAvailable();
 	void MoveRoverFromBusyToCheckup(Rover*);
 	void MoveRoverFromCheckupToAvailable();
+
+	//Maintenance
+	bool CheckRoverMaintenance(Rover* R);
 
 	//Output file associated functions
 	void PrintOutput();
@@ -117,10 +131,7 @@ public:
 	void ExchangeEMissions(PriQ<EmergencyMission*>& Q1, PriQ<EmergencyMission*>& Q2);
 	void ExchangeExecMissions(PriQ<Mission*>& Q1, PriQ<Mission*>& Q2);
 
-	void simulateInteractive();
-	void simulateStepByStep();
-	void simulateSilent();
-	void simulateG(int x);
+	void print();
 
 	// Destructor
 	~MarsStation();

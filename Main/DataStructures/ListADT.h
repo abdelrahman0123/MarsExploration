@@ -4,7 +4,6 @@ class ListADT
 {
 public:
 	virtual bool isEmpty() const = 0;
-	virtual int getLength() const = 0;
 	virtual bool insert(int newPosition, const ItemType& newEntry) = 0;
 	virtual bool remove(int position) = 0;
 	virtual void clear() = 0;
