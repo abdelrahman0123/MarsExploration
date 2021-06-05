@@ -131,12 +131,7 @@ void Rover::operator =(const Rover& r) {
 	checkupDuration = r.checkupDuration;
 	speed = r.speed;
 }
-void Rover::setRoverID(int i) {
-	ID = i;
-}
-int Rover::getRoverID() {
-	return iD;
-}
+
 
 Rover::~Rover() {
 

@@ -82,7 +82,7 @@ void Mission::DecrementInexecutionDays()
 
 void Mission::SetExecutionDays(int speed)//set the num of execution days 
 {
-	int way = (TLOC / speed) / 25;
+	int way =ceil( (TLOC / speed) / 25);
 	ED = 2 * way + MDUR;
 	Eperiod = ED;
 }
