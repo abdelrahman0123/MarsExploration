@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include "../Rovers/Rover.h"
 using namespace std;
 enum status { Waiting, Inexecution, completed };
 class Mission
@@ -7,13 +8,15 @@ class Mission
 private:
 	int ID, TLOC, MDUR, SIG, FD, WD, ED, CD,Eperiod;
 	// id  location, duration,  significance, formulation day,waiting days,execution days,completion days
+	Rover* associated{ nullptr };
 	status MissionStatus;
+	bool isAutoP{ false };
 public:
 	//constuctor
 	Mission();
 	Mission(int a, int b, int c, int d, int e);
 	//destuctor
-	~Mission();
+	virtual ~Mission();
 	
 	//getters
 	int GetId();
@@ -26,6 +29,10 @@ public:
 	int GetCompletionDay();
 	int GetAvgWaitingdays(int num);
 	int GetAvgExecutiondays(int num);
+	int GetExecutionPeriod();
+
+	bool AutoPromoted();
+	Rover* getAssociated();
 
 	//setters
 	void SetId(int i);
@@ -40,6 +47,8 @@ public:
 	void UpdateToExecution();
 	void UpdateToCompleted();
 	
+	void setAutoP();
+	void setAssociated(Rover* rvr);		//To set the associated rover when in execution
 
 	//print format
 	void PrintMission();

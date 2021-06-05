@@ -1,210 +1,373 @@
+#pragma once
 #include "UI.h"
-//
-///*UI::UI()
-//{
-//	ipFile.open("Input.txt", ios::in);
-//	emergencyRovers = new Queue<int>;
-//	polarRovers = new Queue<int>;
-//	mountRovers = new Queue<int>;
-//}*/
-///*UI::UI(int p, int em, int m) {
-//	setPolarRoversNum(p);
-//	setEmergencyRoversNum(em);
-//	setMountainousRoversNum(m);
-//	polarList = new int[polarRoversNum];
-//	emergencyList = new int[emergencyRoversNum];
-//	mountainousList = new int[mountainousRoversNum];
-//}
-//void UI::setEmergencyRoversNum(int s) {
-//	emergencyRoversNum = s;
-//}
-//void UI::setPolarRoversNum(int s) {
-//	polarRoversNum = s;
-//}
-//void UI::setMountainousRoversNum(int s) {
-//	mountainousRoversNum = s;
-//}
-//int UI::getEmergencyRoversNum() {
-//	return emergencyRoversNum;
-//}
-//
-//int UI::getAutoP()
-//{
-//	int autoP;
-//	ipFile >> autoP;
-//	return autoP;
-//}
-//
-//int UI::getNumofEvents()
-//{
-//	int temp;
-//	ipFile >> temp;
-//	return temp;
-//}
-//
-//Queue<int>* UI::getEvent()
-//{
-//	eventData = new Queue<int>;
-//	int temp;
-//	//Getting the event type
-//	char eventType, Mtype;
-//	ipFile >> eventType;
-//	setEtype(eventType);
-//
-//	if (eventType == 'F')
-//	{
-//		ipFile >> Mtype;		//Getting type of the mission to be formulated
-//		setMtype(Mtype);
-//		for (int i = 0; i < 5; i++)
-//		{
-//			ipFile >> temp;
-//			eventData->enqueue(temp);
-//		}
-//	}
-//	else
-//	{
-//		for (int i = 0; i < 2; i++)
-//		{
-//			ipFile >> temp;
-//			eventData->enqueue(temp);
-//		}
-//	}
-//
-//	return eventData;
-//}
-//
-//UI::~UI()
-//{
-//
-//}
-//
-//Queue<int>* UI::getEmRovers()
-//{
-//	return emergencyRovers;
-//}
-//
-//	cout << "\n-------------------------------------------------------------------------\n";
-//}*/
-//void UI:: addAvPolar(int n){
-//	avPolar.enqueue(n);
-//	avPolarRoversnum++;
-//}
-//
-//void UI:: addAvEmergency(int n){
-//	avEmergency.enqueue(n);
-//	avEmergencyRoversnum++;
-//}
-//void UI:: addAvMountainous(int n){
-//	avMountainous.enqueue(n);
-//	avMountainounsRoversnum++;
-//}
-//void UI:: addCheckupPolar(int n){
-//	checkupPolar.enqueue(n);
-//	checkupPolarRoversnum++;
-//
-//}
-//void UI:: addCheckupEmemergnecy(int n){
-//	checkupEmemergnecy.enqueue(n);
-//	checkupEmergencyRoversnum++;
-//}
-//void UI:: addCheckupMountainous(int n){
-//checkupMountainous.enqueue(n);
-//checkupMountainousRoversnum++;
-//}
-//void UI:: addWaitingMissionsPolar(int n){
-//	waitingMissionsPolar.enqueue(n);
-//	waitingPolarMissionsnum++;
-//}
-//void UI:: addWaitingMissionsEmergency(int n){
-//waitingMissionsEmergency.enqueue(n);
-//waitingEmergemcyMissionsnum++;
-//}
-//void UI:: addWaitingMissionsMountainous(int n){
-//waitingMissionsMountainous.enqueue(n);
-//waitingMountainousMissionsnum++;
-//}
-//void UI:: addInExecutionPolar(int n){
-//inExecutionPolar.enqueue(n);
-//inExecutionPolarMissionsnum++;
-//}
-//void UI:: addInExecutionEmergency(int n){
-//inExecutionEmergency.enqueue(n);
-//inExecutiomEmergencyMissionsnum++;
-//}
-//void UI:: addInExecutionMountainous(int n){
-//inExecutionMountainous.enqueue(n);
-//inExecutionMountainousMissionsnum++;
-//
-//}
-//void UI:: addCompletedPolarMissions(int n){
-//completedPolarMissions.enqueue(n);
-//compPolarMissionsnum++;
-//}
-//void UI:: addCompletedEmergencyMisisons(int n){
-//completedEmergencyMisisons.enqueue(n);
-//compEmergencyMissionsnum++;
-//}
-//void UI:: addCompletedMountainousMissions(int n){
-//completedMountainousMissions.enqueue(n);
-//comMountainousMissionsnum++;
-//}
-//
-//
-//void UI::removeAvEmergency(  ) { int n;
-//	avEmergency.dequeue(n);
-//	avEmergencyRoversnum--;
-//}
-//void UI::removeAvMountainous(  ) { int n;
-//	avMountainous.dequeue(n);
-//	avMountainounsRoversnum--;
-//}
-//void UI::removeCheckupPolar(  ) { int n;
-//	checkupPolar.dequeue(n);
-//	checkupPolarRoversnum--;
-//
-//}
-//void UI::removeCheckupEmemergnecy(  ) { int n;
-//	checkupEmemergnecy.dequeue(n);
-//	checkupEmergencyRoversnum--;
-//}
-//void UI::removeCheckupMountainous(  ) { int n;
-//	checkupMountainous.dequeue(n);
-//	checkupMountainousRoversnum--;
-//}
-//void UI::removeWaitingMissionsPolar(  ) { int n;
-//	waitingMissionsPolar.dequeue(n);
-//	waitingPolarMissionsnum--;
-//}
-//void UI::removeWaitingMissionsEmergency(  ) { int n;
-//	waitingMissionsEmergency.dequeue(n);
-//	waitingEmergemcyMissionsnum--;
-//}
-//void UI::removeWaitingMissionsMountainous(  ) { int n;
-//	waitingMissionsMountainous.dequeue(n);
-//	waitingMountainousMissionsnum--;
-//}
-//void UI::removeInExecutionPolar(  ) { int n;
-//	inExecutionPolar.dequeue(n);
-//	inExecutionPolarMissionsnum--;
-//}
-//void UI::removeInExecutionEmergency(  ) { int n;
-//	inExecutionEmergency.dequeue(n);
-//	inExecutiomEmergencyMissionsnum--;
-//}
-//void UI::removeInExecutionMountainous(  ) { int n;
-//	inExecutionMountainous.dequeue(n);
-//	inExecutionMountainousMissionsnum--;
-//
-//}
-//void UI::removeCompletedPolarMissions(  ) { int n;
-//	completedPolarMissions.dequeue(n);
-//	compPolarMissionsnum--;
-//}
-//void UI::removeCompletedEmergencyMisisons(  ) { int n;
-//	completedEmergencyMisisons.dequeue(n);
-//	compEmergencyMissionsnum--;
-//}
-//void UI::removeCompletedMountainousMissions(  ) { int n;
-//	completedMountainousMissions.dequeue(n);
-//	comMountainousMissionsnum--;
-//}
+
+UI::UI()
+{
+}
+char UI::selectMode()
+{
+	char c;
+	cout << "**************************************************" << endl;
+	cout << "*                                                *" << endl;
+	cout << "*          ~~~~~MARS EXPLORATION~~~~~            *" << endl;
+	cout << "*                                                *" << endl;
+	cout << "**************************************************" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 'i' for simulation in the Interactive Mode |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 's' for the Step-By-Step Mode              |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "Enter 't' for the Silent Mode                    |" << endl;
+	cout << "--------------------------------------------------" << endl;
+	cout << "--> ";
+	cin >> c;
+	cout << "\n\n";
+	return c;
+
+}
+
+bool UI::interactiveMode()
+{
+	char c;
+	cout << "~~Press ENTER to display the output of the next day.\n";
+	cin.sync();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	return true;
+	/*--Enter
+	cin.sync();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	*/
+}
+void UI::stepByStepMode() {
+	
+}
+
+void UI::silentMode()
+{
+	cout << "Silent Mode\nSimulation Starts...\nSimulation ends, Output file created\n";
+}
+void UI::printCurrentDay(int day)
+{
+	cout << "Current Day: " << day << endl;
+}
+
+void UI::printWaitingMissions(PriQ<EmergencyMission*>& emrgncy, LinkedList<MountainousMission*>& mount, Queue<PolarMission*>& polar, int E, int M, int P)
+{
+	cout << E + M + P << " Waiting Missions: ";
+	PriQ<EmergencyMission*> Etemp = emrgncy;
+	LinkedList<MountainousMission*> Mtemp = mount;
+	Queue<PolarMission*> Ptemp = polar;
+	if (E != 0)
+	{
+		cout << "[";
+		EmergencyMission* x;
+		while (!Etemp.isEmpty())
+		{
+			Etemp.dequeue(x);
+			cout << x->GetId();
+			if (!Etemp.isEmpty())
+				cout << ',';
+		}
+		cout << "] ";
+	}
+
+	if (P != 0)
+	{
+		cout << '(';
+		PolarMission* x;
+		while (!Ptemp.isEmpty())
+		{
+			Ptemp.dequeue(x);
+			cout << x->GetId();
+			if (!Ptemp.isEmpty())
+				cout << ',';
+		}
+		cout << ") ";
+	}
+
+	for (int i = 1; i <= M; i++)
+	{
+		if (i == 1)
+			cout << '{';
+		int x = Mtemp.getEntry(i)->GetId();
+		cout << x;
+		if (i < M)
+			cout << ',';
+		if (i == M)
+			cout << "} ";
+	}
+
+	cout << endl << "-------------------------------------------------------" << endl;
+}
+
+void UI::printInExecution(PriQ<Mission*>& missions)
+{
+	PriQ<Mission*> ExecTemp = missions;
+	Queue<EmergencyMission*> Emrgncylist;		Queue<MountainousMission*> Mountlist;		Queue<PolarMission*> Polarlist;
+	EmergencyMission* Emrgncy;					MountainousMission* Mount;					PolarMission* Polar;
+	Mission* temp;
+	int count{ 0 };
+
+	while (!ExecTemp.isEmpty())
+	{
+		ExecTemp.dequeue(temp);
+		Emrgncy = dynamic_cast<EmergencyMission*>(temp);
+		if (Emrgncy)
+		{
+			Emrgncylist.enqueue(Emrgncy);
+			count++;
+			continue;
+		}
+		Mount = dynamic_cast<MountainousMission*>(temp);
+		if (Mount)
+		{
+			Mountlist.enqueue(Mount);
+			count++;
+			continue;
+		}
+		Polar = dynamic_cast<PolarMission*>(temp);
+		count++;
+		Polarlist.enqueue(Polar);
+	}
+
+	cout << count << " In-Execution Missions/Rovers: ";
+
+	if (!Emrgncylist.isEmpty())
+	{
+		cout << '[';
+		while (!Emrgncylist.isEmpty())
+		{
+			Emrgncylist.dequeue(Emrgncy);
+			cout << Emrgncy->GetId() << '/';
+			cout << Emrgncy->getAssociated()->getRoverID();
+			if (!Emrgncylist.isEmpty())
+				cout << ", ";
+		}
+		cout << "] ";
+	}
+
+	if (!Polarlist.isEmpty())
+	{
+		cout << '(';
+		while (!Polarlist.isEmpty())
+		{
+			Polarlist.dequeue(Polar);
+			cout << Polar->GetId() << '/';
+			cout << Polar->getAssociated()->getRoverID();
+			if (!Polarlist.isEmpty())
+				cout << ", ";
+		}
+		cout << ") ";
+	}
+
+	if (!Mountlist.isEmpty())
+	{
+		cout << '{';
+		while (!Mountlist.isEmpty())
+		{
+			Mountlist.dequeue(Mount);
+			cout << Mount->GetId() << '/';
+			cout << Mount->getAssociated()->getRoverID();
+			if (!Mountlist.isEmpty())
+				cout << ", ";
+		}
+		cout << "} ";
+	}
+
+	cout << endl << "-------------------------------------------------------" << endl;
+}
+
+void UI::printAvailableRovers(int num, PriQ<Rover*>& emrgncy, PriQ<Rover*>& mount, PriQ<Rover*>& polar)
+{
+	cout << num << " Available Rovers: ";
+
+	Rover* tmp;
+	PriQ<Rover*> Etemp = emrgncy;
+	PriQ<Rover*> Mtemp = mount;
+	PriQ<Rover*> Ptemp = polar;
+	if (!Etemp.isEmpty())
+	{
+		cout << '[';
+		while (!Etemp.isEmpty())
+		{
+			Etemp.dequeue(tmp);
+			cout << tmp->getRoverID();
+			if (!Etemp.isEmpty())
+				cout << ", ";
+		}
+		cout << "] ";
+	}
+
+	if (!Ptemp.isEmpty())
+	{
+		cout << '(';
+		while (!Ptemp.isEmpty())
+		{
+			Ptemp.dequeue(tmp);
+			cout << tmp->getRoverID();
+			if (!Ptemp.isEmpty())
+				cout << ", ";
+		}
+		cout << ") ";
+	}
+
+	if (!Mtemp.isEmpty())
+	{
+		cout << '{';
+		while (!Mtemp.isEmpty())
+		{
+			Mtemp.dequeue(tmp);
+			cout << tmp->getRoverID();
+			if (!Mtemp.isEmpty())
+				cout << ", ";
+		}
+		cout << "} ";
+	}
+
+	cout << endl << "-------------------------------------------------------" << endl;
+
+}
+
+void UI::printInCheckup(int num, PriQ<Rover*>& rovers)
+{
+	cout << num << "  In-Checkup Rovers: ";
+
+	PriQ<Rover*> Check = rovers;
+	Queue<int> e, p, m;
+	Rover* tmp;
+	char c;
+
+	while (Check.dequeue(tmp))
+	{
+		c = tmp->getRoverType();
+		switch (c)
+		{
+		case 'E':
+			e.enqueue(tmp->getRoverID());
+			break;
+		case 'P':
+			p.enqueue(tmp->getRoverID());
+			break;
+		case 'M':
+			m.enqueue(tmp->getRoverID());
+			break;
+		}
+	}
+
+	int x;
+
+	if (!e.isEmpty())
+	{
+		cout << '[';
+		while (e.dequeue(x))
+		{
+			cout << x;
+			if (!e.isEmpty())
+				cout << ',';
+		}
+		cout << "] ";
+	}
+
+	if (!p.isEmpty())
+	{
+		cout << '(';
+		while (p.dequeue(x))
+		{
+			cout << x;
+			if (!p.isEmpty())
+				cout << ',';
+		}
+		cout << ") ";
+	}
+
+	if (!m.isEmpty())
+	{
+		cout << '{';
+		while (m.dequeue(x))
+		{
+			cout << x;
+			if (!m.isEmpty())
+				cout << ',';
+		}
+		cout << "} ";
+	}
+
+	cout << endl << "-------------------------------------------------------" << endl;
+
+}
+
+void UI::printCompletedMissions(int num, Queue<Mission*>& Completed)
+{
+	cout << num << "  Completed Missions: ";
+
+	Queue<Mission*> Comp = Completed;
+	Queue<EmergencyMission*> Emrgncylist;		Queue<MountainousMission*> Mountlist;		Queue<PolarMission*> Polarlist;
+	EmergencyMission* Emrgncy;					MountainousMission* Mount;					PolarMission* Polar;
+	Mission* temp;
+
+	while (!Comp.isEmpty())
+	{
+		Comp.dequeue(temp);
+		Emrgncy = dynamic_cast<EmergencyMission*>(temp);
+		if (Emrgncy)
+		{
+			Emrgncylist.enqueue(Emrgncy);
+			continue;
+		}
+
+		Mount = dynamic_cast<MountainousMission*>(temp);
+		if (Mount)
+		{
+			Mountlist.enqueue(Mount);
+			continue;
+		}
+
+		Polar = dynamic_cast<PolarMission*>(temp);
+		Polarlist.enqueue(Polar);
+	}
+
+
+	if (!Emrgncylist.isEmpty())
+	{
+		cout << '[';
+		while (Emrgncylist.dequeue(Emrgncy))
+		{
+
+			cout << Emrgncy->GetId();
+			if (!Emrgncylist.isEmpty())
+				cout << ", ";
+		}
+		cout << "] ";
+	}
+
+	if (!Polarlist.isEmpty())
+	{
+		cout << '(';
+		while (Polarlist.dequeue(Polar))
+		{
+			cout << Polar->GetId();
+			if (!Polarlist.isEmpty())
+				cout << ", ";
+		}
+		cout << ") ";
+	}
+
+	if (!Mountlist.isEmpty())
+	{
+		cout << '{';
+		while (Mountlist.dequeue(Mount))
+		{
+			cout << Mount->GetId();
+			if (!Mountlist.isEmpty())
+				cout << ", ";
+		}
+		cout << "} ";
+	}
+
+	cout << "\n\n************************************************************************************************************************\n\n";
+}
+
+void UI::printEnd()
+{
+	cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~||THE END||~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+}

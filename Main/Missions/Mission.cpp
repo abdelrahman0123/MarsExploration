@@ -43,6 +43,21 @@ int Mission::GetAvgExecutiondays(int num)//get the avreage of the execution peri
 {
 	return ED / num;
 }
+
+int Mission::GetExecutionPeriod()
+{
+	return Eperiod;
+}
+
+bool Mission::AutoPromoted()
+{
+	return isAutoP;
+}
+Rover* Mission::getAssociated()
+{
+	return associated;
+}
+
 //setters
 void Mission::SetId(int i)//set the id
 { ID = (i> 0) ? i : 0; }
@@ -63,7 +78,7 @@ void Mission::IncrementWaitingDays()//inrement the number of waiting days of the
 { WD++; }
 
 void Mission::DecrementInexecutionDays()
-{Eperiod--;}
+{ED--;}
 
 void Mission::SetExecutionDays(int speed)//set the num of execution days 
 {
@@ -88,4 +103,14 @@ void Mission::UpdateToExecution()
 void Mission::UpdateToCompleted()
 {
 	MissionStatus = completed;
+}
+
+void Mission::setAutoP()
+{
+	isAutoP = true;
+}
+
+void Mission::setAssociated(Rover* rvr)
+{
+	associated = rvr;
 }

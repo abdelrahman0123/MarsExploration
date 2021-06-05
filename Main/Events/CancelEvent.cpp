@@ -1,7 +1,7 @@
 #include "CancelEvent.h"
 #include"..\MarsStation\MarsStation.h"
 
-CancelEvent::CancelEvent(int day, int ID) : Event(day, ID)
+CancelEvent::CancelEvent(MarsStation* MS, int day, int ID) : Event(day, ID, MS)
 {
 }
 

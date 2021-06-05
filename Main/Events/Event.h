@@ -8,7 +8,7 @@ class Event
 protected:
 	MarsStation* Station;
 public:
-	Event(int day, int ID);
+	Event(int day, int ID, MarsStation* MS);
 	void setEventDay(int day);
 	int getEventDay();
 	void setMissionID(int ID);

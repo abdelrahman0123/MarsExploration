@@ -8,7 +8,7 @@ class FormulationEvent : public Event
 	int SIG; // Significance
 public:
 	// Initializing constructor
-	FormulationEvent(MissionType Type, int day, int ID, int loc, int dur, int sig);
+	FormulationEvent(MarsStation* MS, MissionType Type, int day, int ID, int loc, int dur, int sig);
 	// Execute
 	virtual void Execute();
 	// Destructor
