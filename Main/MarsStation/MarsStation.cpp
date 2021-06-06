@@ -401,7 +401,7 @@ void MarsStation::AddToInExecutionMissions(Mission* M, int n)
 
 void MarsStation::AddToInExecutionRovers(Rover* R, int n)
 {
-	InExecutionRovers.enqueue(R, n);
+	InExecutionRovers.enqueue(R, (-1) * n);
 	R->setAvailability(0);
 }
 
@@ -677,24 +677,24 @@ void MarsStation::PromoteMission(int ID)
 void MarsStation::MoveRoverFromAvailabeToBusy(Rover*r) {
 
 	char type=r->getRoverType();
-
+	
 	switch (type) {
 	case('M'): {
 		
 		r = RemoveFromMountainousRovers();
-		AddToInExecutionRovers(r, (-1) * r->getExecutionDays());
+		AddToInExecutionRovers(r, r->getExecutionDays());
 
 	}
 			 break;
 	case('E'): {
 		r = RemoveFromEmergencyRovers();
-		AddToInExecutionRovers(r, (-1) * r->getExecutionDays());
+		AddToInExecutionRovers(r, r->getExecutionDays());
 
 	}
 			 break;
 	case('P'): {
 		r = RemoveFromPolarRovers();
-		AddToInExecutionRovers(r, (-1) * r->getExecutionDays());
+		AddToInExecutionRovers(r, r->getExecutionDays());
 	}
 			 break;
 	}
@@ -794,7 +794,7 @@ void MarsStation::MoveRoverFromCheckupToAvailable() {
 
 bool MarsStation::CheckRoverMaintenance(Rover* R)
 {
-	if (R->getExecutionDays() >= 10)
+	if (R->getExecutionDays() >= 30)
 	{
 		R->setMaintenanceStatus(1);
 		return true;
@@ -852,66 +852,29 @@ void MarsStation::getStatistics()
 		opFile << Finished->GetExecutionPeriod() << "\n";
 	}
 
-	avgWaiting = waitDays / missionCount;
-	avgExecution = exeDays / missionCount;
+	if (missionCount == 0)
+	{
+		avgWaiting = 0;
+		avgExecution = 0;
+	}
+	else
+	{
+		avgWaiting = waitDays / missionCount;
+		avgExecution = exeDays / missionCount;
+	}
 
 	//Printing the statistics results
 	opFile << "Missions: " << missionCount << " [M: " << mountCount << ", P: " << polarCount << ", E: " << emergencyCount << "]\n";
 	printRoversData();
 	opFile << "Avg Wait = " << avgWaiting << ", Avg Exec = " << avgExecution << "\n";
-	opFile << "Auto-promoted: " << (float)autoPCount * 100 / (float) (autoPCount + mountCount) << '%';
+	if (missionCount > 0)
+		opFile << "Auto-promoted: " << (float)autoPCount * 100 / (float) (autoPCount + mountCount) << '%';
+	else
+		opFile << "Auto-promoted: " << "0" << '%';
 }
 
 void MarsStation::printRoversData()
 {
-	/*
-	int roversCount{ 0 }, mountCount{ 0 }, polarCount{ 0 }, emrgncyCount{ 0 };
-	Rover* temp;
-
-	///////Checking for available rovers/////////
-	while (!EmergencyRovers.isEmpty())
-	{
-		EmergencyRovers.dequeue(temp);
-		roversCount++;
-		emrgncyCount++;
-	}
-
-	while (!PolarRovers.isEmpty())
-	{
-		PolarRovers.dequeue(temp);
-		roversCount++;
-		polarCount++;
-	}
-
-	while (!MountainousRovers.isEmpty())
-	{
-		MountainousRovers.dequeue(temp);
-		roversCount++;
-		mountCount++;
-	}
-
-	///////Checking for rovers in checkup
-	char r;
-	while (!RoversCheckup.isEmpty())
-	{
-		RoversCheckup.dequeue(temp);
-		roversCount++;
-		r = temp->getRoverType();
-
-		switch (r)
-		{
-		case 'E':
-			emrgncyCount++;
-			break;
-		case 'P':
-			polarCount++;
-			break;
-		case 'M':
-			mountCount++;
-			break;
-		}
-	}
-	*/
 	//Printing rovers data
 	opFile << "Rovers: " << roversCount << " [M: " << mountRCount << ", P: " << polarRCount << ", E: " << emrgncyRCount << "]\n";
 }

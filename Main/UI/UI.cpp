@@ -48,7 +48,7 @@ void UI::silentMode()
 }
 void UI::printCurrentDay(int day)
 {
-	cout << "Current Day: " << day << endl;
+	cout << "Current Day: " << day << endl << endl;
 }
 
 void UI::printWaitingMissions(PriQ<EmergencyMission*>& emrgncy, LinkedList<MountainousMission*>& mount, Queue<PolarMission*>& polar, int E, int M, int P)
