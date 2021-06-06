@@ -42,7 +42,7 @@ public:
 	void SetFormulationDay(int i);
 	void IncrementWaitingDays();
 	void DecrementInexecutionDays();
-    void SetExecutionDays(int speed);
+    void SetExecutionDays(float speed);
 	void SetCompletionDay();
 	void UpdateToExecution();
 	void UpdateToCompleted();

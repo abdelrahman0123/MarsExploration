@@ -62,6 +62,8 @@ public:
     
 	void DecrementMissionsLeft();//Decrements the ACTUAL number of missions left before checkup
 
+	void DecrementExecutionDays();
+
 	char getRoverType();
 	
 	int getLastCheckupDay();

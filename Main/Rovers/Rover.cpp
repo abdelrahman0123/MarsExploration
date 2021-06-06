@@ -98,6 +98,11 @@ void Rover::DecrementMissionsLeft() {
 	missionLeft--;
 }
 
+void Rover::DecrementExecutionDays()
+{
+	MissionExecutionDays--;
+}
+
 int Rover::getMissionsLeft() {
 	return missionLeft;
 }

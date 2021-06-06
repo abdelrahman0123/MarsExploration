@@ -55,7 +55,6 @@ void MarsStation::simulateSilent()
 
 void MarsStation::simulateG(int x)
 {
-
 	UpdateMissions();
 	///////////////
 	ExecuteEvent();
@@ -298,14 +297,10 @@ void MarsStation::UpdateMissions()
 			MM->DecrementAutoPromotion();
 			if (MM->GetAutoPromotion() == 0)
 			{
-				int a, b, c, d, e;
-				a = MM->GetId();
-				b = MM->GetTargetLocation();
-				c = MM->GetMissDuration();
-				d = MM->GetSignificance();
-				e = MM->GetFormulationDay();
-				EmergencyMission* EM = new EmergencyMission(a, b, c, d, e);
-				AddToEmergencyMissions(EM, EM->GetPriority());
+				autoPCount++;
+				int ID = MM->GetId();
+				PromoteMission(ID);
+				i--;
 			}
 		}
 		i++;
@@ -317,6 +312,7 @@ void MarsStation::UpdateMissions()
 	{
 		InExecutionMissions.dequeue(mission);
 		mission->DecrementInexecutionDays();
+		mission->getAssociated()->DecrementExecutionDays();
 		InExecutionTemp.enqueue(mission,(-1) * mission->GetExecutionDays());
 	}
 	//InExecutionMissions = InExecutionTemp;
@@ -339,6 +335,7 @@ void MarsStation::HandleMission()
 			
 			Temp->UpdateToCompleted();
 			AddToCompletedMissions(Temp);
+
 			
 			/////EL ROVER BETA3 SARA $$$$$$$$$$$$$
 		}
@@ -444,8 +441,11 @@ EmergencyMission* MarsStation::RemoveFromEmergencyMissions()
 MountainousMission* MarsStation::RemoveFromMountainousMissions(int i)
 {
 	MountainousMission* MM = MountainousMissions.getEntry(i);
-	MountainousMissions.remove(i);
-	mountMCount--;
+	if (MM)
+	{
+		MountainousMissions.remove(i);
+		mountMCount--;
+	}
 	return MM;
 }
 
@@ -655,7 +655,7 @@ void MarsStation::CancelMission(int ID)
 void MarsStation::PromoteMission(int ID)
 {
 	int i = 1;
-	while (!MountainousMissions.isEmpty())
+	while (MountainousMissions.getEntry(i))
 	{
 		MountainousMission* M_Mission = MountainousMissions.getEntry(i);
 		int MissionID = M_Mission->GetId();
@@ -664,7 +664,7 @@ void MarsStation::PromoteMission(int ID)
 			int TLOC = M_Mission->GetTargetLocation();
 			int MDUR = M_Mission->GetMissDuration();
 			int SIG = M_Mission->GetSignificance();
-			int FD = M_Mission->GetFormulationDay();
+			int FD = currentDay;
 			RemoveFromMountainousMissions(i);
 			EmergencyMission* EM = new EmergencyMission(MissionID, TLOC, MDUR, SIG, FD);
 			AddToEmergencyMissions(EM, EM->GetPriority());
@@ -704,7 +704,7 @@ void MarsStation::MoveRoverFromBusyToAvailable() {
 	while (!InExecutionRovers.isEmpty()) {
 		Rover* r=nullptr;
 		InExecutionRovers.peek(r);
-		if (r && r->getCompletionDay() == currentDay) {
+		if (r && r->getExecutionDays() == 0) {
 			char type = r->getRoverType();
 
 			switch (type) {
@@ -817,7 +817,7 @@ void MarsStation::PrintOutput()
 
 void MarsStation::getStatistics()
 {
-	int missionCount{ 0 }, mountCount{ 0 }, polarCount{ 0 }, emergencyCount{ 0 }, autoPcount{ 0 };
+	int missionCount{ 0 }, mountCount{ 0 }, polarCount{ 0 }, emergencyCount{ 0 };
 	float waitDays{ 0 }, exeDays{ 0 }, avgWaiting, avgExecution;
 	char ch;
 
@@ -837,18 +837,18 @@ void MarsStation::getStatistics()
 			break;
 		case 'E':
 			emergencyCount++;
-			if (Finished->AutoPromoted())
-				autoPcount++;
+			//if (Finished->AutoPromoted())
+				//autoPcount++;
 			break;
 		}
 		waitDays = waitDays + Finished->GetWaitingDays();		//Counting the total waiting days
 		exeDays = exeDays + Finished->GetExecutionPeriod();		//Counting the total execution days
 
 		//Printing the mission details
-		opFile << Finished->GetCompletionDay() << "    ";
-		opFile << Finished->GetId() << "    ";
-		opFile << Finished->GetFormulationDay() << "    ";
-		opFile << Finished->GetWaitingDays() << "    ";
+		opFile << Finished->GetCompletionDay() << "     ";
+		opFile << Finished->GetId() << "     ";
+		opFile << Finished->GetFormulationDay() << "     ";
+		opFile << Finished->GetWaitingDays() << "     ";
 		opFile << Finished->GetExecutionPeriod() << "\n";
 	}
 
@@ -859,7 +859,7 @@ void MarsStation::getStatistics()
 	opFile << "Missions: " << missionCount << " [M: " << mountCount << ", P: " << polarCount << ", E: " << emergencyCount << "]\n";
 	printRoversData();
 	opFile << "Avg Wait = " << avgWaiting << ", Avg Exec = " << avgExecution << "\n";
-	opFile << "Auto-promoted: " << (float)autoPcount * 100 / (float)missionCount << '%';
+	opFile << "Auto-promoted: " << (float)autoPCount * 100 / (float) (autoPCount + mountCount) << '%';
 }
 
 void MarsStation::printRoversData()

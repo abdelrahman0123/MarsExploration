@@ -33,7 +33,7 @@ class MarsStation
 	UI* UserInterface;
 	UI interact;
 	int currentDay = 1;
-
+	int autoPCount{ 0 };
 	int roversCount{ 0 }, mountRCount{ 0 }, polarRCount{ 0 }, emrgncyRCount{ 0 }, checkUpCount{ 0 };
 	int mountMCount{ 0 }, polarMCount{ 0 }, emrgncyMCount{ 0 }, completedMcount{ 0 };
 	int maxRoversCount{ 0 };

@@ -29,7 +29,7 @@ char UI::selectMode()
 bool UI::interactiveMode()
 {
 	char c;
-	cout << "~~Press ENTER to display the output of the next day.\n";
+	cout << "~~Press ENTER to display the output of the next day.\n\n";
 	cin.sync();
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	return true;
