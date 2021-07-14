@@ -1,0 +1,33 @@
+﻿  CancelEvent.cpp
+  Event.cpp
+  FormulationEvent.cpp
+D:\MarsExploration-Sarah-s\MarsExploration\Main\Events\FormulationEvent.cpp(16,54): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  PromoteEvent.cpp
+  MarsStation.cpp
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(207,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(208,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(217,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(227,43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(228,45): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(320,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(400,23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(423,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(433,32): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(443,26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(716,46): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+D:\MarsExploration-Sarah-s\MarsExploration\Main\MarsStation\MarsStation.cpp(930,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  EmergencyMission.cpp
+D:\MarsExploration-Sarah-s\MarsExploration\Main\Missions\EmergencyMission.cpp(12,82): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Mission.cpp
+D:\MarsExploration-Sarah-s\MarsExploration\Main\Missions\Mission.cpp(88,11): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  MountainousMission.cpp
+  PolarMission.cpp
+  Rover.cpp
+  Main.cpp
+  UI.cpp
+D:\MarsExploration-Sarah-s\MarsExploration\Main\UI\UI.cpp(45,7): warning C4101: 'c': unreferenced local variable
+  Generating Code...
+D:\MarsExploration-Sarah-s\MarsExploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<EmergencyMission *>::enqueue': not all control paths return a value
+D:\MarsExploration-Sarah-s\MarsExploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Mission *>::enqueue': not all control paths return a value
+D:\MarsExploration-Sarah-s\MarsExploration\Main\DataStructures\PriQ.h(68): warning C4715: 'PriQ<Rover *>::enqueue': not all control paths return a value
+  Main.vcxproj -> D:\MarsExploration-Sarah-s\MarsExploration\x64\Debug\Main.exe
